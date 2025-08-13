@@ -29,12 +29,12 @@ public class Main {
             //GerenciadorBancoDados.deletarTabela(conn, tabela);
             //GerenciadorBancoDados.deletarTabela(conn, tabela2);
 
-            //GerenciadorBancoDados.criarTabelaJogos(conn, tabela, tipoBanco);
+            GerenciadorBancoDados.criarTabelaJogos(conn, tabela, tipoBanco);
             //GerenciadorBancoDados.criarTabelaClientes(conn, tabela2, tipoBanco);
 
             // add jogos
-            //GerenciadorBancoDados.inserirDadosJogos(conn,jogo.getNome(),jogo.getAno(),jogo.getQtdDisponivel(),jogo.getConsole(), jogo.getEsrb(),tabela );
-            //GerenciadorBancoDados.inserirDadosJogos(conn,jogo.getNome(),jogo.getAno(),jogo.getQtdDisponivel(),"Xbox", jogo.getEsrb(),tabela );
+            GerenciadorBancoDados.inserirDadosJogos(conn,jogo.getNome(),jogo.getAno(),jogo.getQtdDisponivel(),jogo.getConsole(), jogo.getEsrb(),tabela );
+            GerenciadorBancoDados.inserirDadosJogos(conn,jogo.getNome(),jogo.getAno(),jogo.getQtdDisponivel(),"Xbox", jogo.getEsrb(),tabela );
             //GerenciadorBancoDados.consultarDadosCliente(conn, tabela);
 
             //GerenciadorBancoDados.deletarDados(conn, 2, tabela);
