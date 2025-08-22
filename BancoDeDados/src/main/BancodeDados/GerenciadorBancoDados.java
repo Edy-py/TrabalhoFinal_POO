@@ -2,21 +2,21 @@ import java.sql.*;
 
 public class GerenciadorBancoDados {
 
-    public static void inserirDadosCliente(Connection conn, String nome, String email, String cpf,String endereco,int telefone, String tabela) throws SQLException {
-        String sql = "INSERT INTO " + tabela + " (Nome, Endereço, Telefone, CPF, E-mail) VALUES (?, ?, ?, ?, ?)";
+    public static void inserirDadosCliente(Connection conn, String nome, String email, String cpf,String endereco,String telefone, String tabela) throws SQLException {
+        String sql = "INSERT INTO " + tabela + " (nome, endereco, telefone, cpf, email) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, nome);
             pstmt.setString(2, endereco);
-            pstmt.setInt(3, telefone);
+            pstmt.setString(3, telefone);
             pstmt.setString(4, cpf);
-            pstmt.setString(4, email);
+            pstmt.setString(5, email);
             pstmt.executeUpdate();
             System.out.println("Inserido: " + nome);
         }
     }
 
     public static void inserirDadosJogos(Connection conn, String nome, int publicacao, String console, String classificacao, int anoLancamento, int estoque, int disponivel,  String tabela) throws SQLException {
-        String sql = "INSERT INTO " + tabela + " (Nome, Publicação,Console, Classificacao, Ano de Lançamento, Quantidade em Estoque, Quantidade Disponível) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO " + tabela + " (nome, publicacao,console, classificacao, ano_lancamento, quantidade, quantidade_disponivel) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, nome);
             pstmt.setInt(2, publicacao);
@@ -31,40 +31,49 @@ public class GerenciadorBancoDados {
     }
 
     public static void consultarDadosCliente(Connection conn, String tabela) throws SQLException {
-        String sql = "SELECT Id, Nome, Email, CPF FROM " + tabela;
+        String sql = "SELECT * FROM " + tabela;
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                System.out.println("ID: " + rs.getInt("Id") + "\t" +
-                        "Nome: " + rs.getString("Nome") + "\t" +
-                        "E-mail: " + rs.getString("Email") +
-                        "\tCPF: " + rs.getString("CPF"));
+                System.out.println("ID: " + rs.getInt("id") + "\t" +
+                        "Nome: " + rs.getString("nome") + "\t" +
+                        "Endereço: " + rs.getString("endereco") +
+                        "\tTelefone: " + rs.getInt("telefone") +
+                        "\tCPF: " + rs.getString("cpf") +
+                        "\tE-mail: " + rs.getString("email"));
             }
         }
     }
 
+
+    //Nome, Publicação,Console, Classificacao, Ano de Lançamento, Quantidade em Estoque, Quantidade Disponível
     public static void consultarDadosJogos(Connection conn, String tabela) throws SQLException {
         String sql = "SELECT *  FROM " + tabela;
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                System.out.println("ID: " + rs.getInt("Id") + "\t" +
-                        "Nome: " + rs.getString("Nome") + "\t" +
-                        "Ano de fabricação: " + rs.getInt("Ano") +
-                        "\tConsole: " + rs.getString("Console") +
-                        "\tQuantidade em estoque: " + rs.getInt("QuantidadeDisponivel"));
+                System.out.println("ID: " + rs.getInt("id") + "\t" +
+                        "Nome: " + rs.getString("nome") + "\t" +
+                        "Publicação: " + rs.getInt("publicacao") +
+                        "\tConsole: " + rs.getString("console") +
+                        "\tClassificacao: " + rs.getString("classificacao") +
+                        "\tAno de Lançamento: "+ rs.getInt("ano_lancamento") +
+                        "\tQuantidade em Estoque: " + rs.getInt("quantidade") +
+                        "\tQuantidade Disponível: " + rs.getInt("quantidade_disponivel"));
             }
         }
     }
 
-    public static void atualizarDadosCliente(Connection conn, int id, String novoNome, String novoCPF, String novoEmail, String tabela) throws SQLException {
-        String sql = "UPDATE " + tabela + " SET Nome = ?, CPF = ?, Email = ? WHERE Id = ?";
+    public static void atualizarDadosCliente(Connection conn,int id, String novoNome, String novoEmail, String novoCPF,String novoEndereco,String novoTelefone, String tabela) throws SQLException {
+        String sql = "UPDATE " + tabela + " SET Nome = ?, email = ?, cpf = ?, endereco = ?, telefone = ? WHERE Id = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, novoNome);
-            pstmt.setString(2, novoCPF);
-            pstmt.setString(3, novoEmail);
-            pstmt.setInt(4, id);
+            pstmt.setString(2, novoEmail);
+            pstmt.setString(3, novoCPF);
+            pstmt.setString(4, novoEndereco);
+            pstmt.setString(5, novoTelefone);
+            pstmt.setInt(6, id);
 
             int linhasAfetadas = pstmt.executeUpdate();
             if (linhasAfetadas > 0) {
