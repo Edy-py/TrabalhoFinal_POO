@@ -6,7 +6,7 @@ public class Cliente {
     private String endereco;
     private String email;
     private int telefone;
-    private ArrayList<Locacao> locacoes;
+    //private ArrayList<Locacao> locacoes;
 
     public String getNome() {
         return nome;
@@ -48,7 +48,7 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public ArrayList<Locacao> getLocacoes() {
+    /*public ArrayList<Locacao> getLocacoes() {
         return locacoes;
     }
 
@@ -56,6 +56,8 @@ public class Cliente {
         this.locacoes = locacoes;
     }
 
+
+     */
     public class ValidadorCPF {
 
         public static boolean isCPFValido(String cpf) {
