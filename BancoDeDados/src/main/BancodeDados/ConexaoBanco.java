@@ -1,8 +1,10 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ConexaoBanco {
 
-    public static Connection conectar() throws SQLException{
+    public static Connection conectar() throws SQLException {
 
         String url = "jdbc:postgresql://db.kcpifoutnitfxowkaslv.supabase.co:5432/postgres";
         String user = "postgres"; // ou o usuário do supabase
@@ -10,5 +12,4 @@ public class ConexaoBanco {
 
         return DriverManager.getConnection(url, user, password);
     }
-
 }
