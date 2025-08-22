@@ -60,7 +60,7 @@ public class Cliente {
      */
     public class ValidadorCPF {
 
-        public static boolean isCPFValido(String cpf) {
+        public boolean isCPFValido(String cpf) {
             // Remove caracteres não numéricos
             cpf = cpf.replaceAll("\\D", ""); //
 

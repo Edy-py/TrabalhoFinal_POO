@@ -24,7 +24,15 @@ public class InterfacePrincipal {
 
     //construtor da interface
     //atribuindo uma funcao mostrarPainel para cada botao
+    //atribuindo outras interfaces aos cards do panelFuncoes
     public InterfacePrincipal(){
+
+        //criando instancias das outras interfaces:
+        LocarJogos locarJogosInter = new LocarJogos();
+
+        locarPanel.setLayout(new BorderLayout());
+        locarPanel.add(locarJogosInter.getControlPane(), BorderLayout.CENTER);
+
         clientesButton.addActionListener(e -> mostrarPainel("Card1"));
         locarButton.addActionListener(e -> mostrarPainel("Card2"));
         jogosButton.addActionListener(e -> mostrarPainel("Card3"));
