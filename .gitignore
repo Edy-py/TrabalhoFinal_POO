@@ -1,5 +1,7 @@
 /BancoDeDados/src/test
 .idea/
-*.iml
+.idea/*iml
+BancoDeDados/*.iml
 out/
-*.xml
+BancoDeDados/*.xml
+BancoDeDados/target
