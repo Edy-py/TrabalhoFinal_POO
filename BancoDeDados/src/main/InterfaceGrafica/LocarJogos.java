@@ -1,6 +1,10 @@
+package InterfaceGrafica;
+
 import javax.swing.*;
 
 public class LocarJogos {
+
+    //declarando os componentes do panel
     private JPanel controlPane;
     private JTextField findCPF_TextField;
     private JComboBox findJogo_ComboBox;

@@ -1,9 +1,13 @@
+package InterfaceGrafica;
+
+import InterfaceGrafica.CadastrarJogos.CadastrarJogos;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class InterfacePrincipal {
 
-    //Declarando os atributos da interface
+    //declarando os componentes do panel
     private JPanel mainPanel;
     private JPanel panelBotoes;
     private JButton clientesButton;
@@ -16,7 +20,7 @@ public class InterfacePrincipal {
     private JPanel jogosPanel;
     private JPanel receberPanel;
 
-    //funcao que realiz a navegacao entre os paineis das funcoes:
+    //funcao que realiza a navegacao entre os paineis das funcoes:
     private void mostrarPainel(String nomePainel){
         CardLayout cl = (CardLayout)panelFuncoes.getLayout();
         cl.show(panelFuncoes, nomePainel);
@@ -29,10 +33,15 @@ public class InterfacePrincipal {
 
         //criando instancias das outras interfaces:
         LocarJogos locarJogosInter = new LocarJogos();
+        CadastrarJogos cadastrarJogosInter = new CadastrarJogos();
 
+        //atribuindo outras interfaces aos cards que estão dentro da panelFuncoes
         locarPanel.setLayout(new BorderLayout());
         locarPanel.add(locarJogosInter.getControlPane(), BorderLayout.CENTER);
+        jogosPanel.setLayout(new BorderLayout());
+        jogosPanel.add(cadastrarJogosInter.getCadastrojogosPanel(), BorderLayout.CENTER);
 
+        //fazendo com que cada botão troque entre os cards do panelFuncoes
         clientesButton.addActionListener(e -> mostrarPainel("Card1"));
         locarButton.addActionListener(e -> mostrarPainel("Card2"));
         jogosButton.addActionListener(e -> mostrarPainel("Card3"));
@@ -45,8 +54,9 @@ public class InterfacePrincipal {
         frame.setContentPane(new InterfacePrincipal().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(800, 500);
+        frame.setSize(1200, 720);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 
 }
