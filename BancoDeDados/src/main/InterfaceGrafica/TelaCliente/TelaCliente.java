@@ -1,7 +1,5 @@
 package InterfaceGrafica.TelaCliente;
 
-import InterfaceGrafica.CadastrarJogos.TelaCadastro;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +19,9 @@ public class TelaCliente {
     private JScrollPane scrollerPanel;
     private JTable tabelaPanel;
     private JButton cadastrarButton;
+    private JPanel topo2Panel;
+    private JTextField buscaTextField;
+    private JButton buscarButton;
 
 
     //Metodo para preencher a combobox
@@ -49,6 +50,14 @@ public class TelaCliente {
             }
         });
          */
+
+        //fazendo o botao abrir uma nova janela
+        cadastrarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TelaCadastroClientes telaCadastroClientes = new TelaCadastroClientes();
+                telaCadastroClientes.setVisible(true);
+            }
+        });
 
         //chamando o metodo que preenche a combobox
         preencherComboBox();

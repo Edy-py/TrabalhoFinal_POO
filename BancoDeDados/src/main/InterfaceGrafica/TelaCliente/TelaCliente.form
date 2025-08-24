@@ -35,6 +35,24 @@
               <text value="Clientes"/>
             </properties>
           </component>
+          <grid id="a5366" binding="topo2Panel" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="ebb5a" class="javax.swing.JTextField" binding="buscaTextField">
+                <constraints border-constraint="Center"/>
+                <properties/>
+              </component>
+              <component id="b93b2" class="javax.swing.JButton" binding="buscarButton" default-binding="true">
+                <constraints border-constraint="East"/>
+                <properties>
+                  <horizontalTextPosition value="0"/>
+                  <text value="Buscar"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </grid>
       <scrollpane id="1aec1" binding="scrollerPanel">
