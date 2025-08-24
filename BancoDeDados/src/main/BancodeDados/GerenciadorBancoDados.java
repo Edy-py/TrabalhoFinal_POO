@@ -1,4 +1,6 @@
+import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.util.Vector;
 
 public class GerenciadorBancoDados {
 
@@ -126,6 +128,40 @@ public class GerenciadorBancoDados {
                     System.out.println(id + " - " + nome + " - " + console + " - " + ano);
                 }
             }
+        }
+    }
+
+    public static DefaultTableModel buscarDadosParaTabela(Connection conn, String nomeTabela) throws SQLException {
+        String sql = "SELECT * FROM " + nomeTabela;
+
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            // Pega os metadados do resultado (informações sobre as colunas)
+            ResultSetMetaData metaData = rs.getMetaData();
+
+            // Nomes das colunas
+            Vector<String> columnNames = new Vector<>();
+            int columnCount = metaData.getColumnCount();
+            for (int column = 1; column <= columnCount; column++) {
+                // Renomeando colunas para um formato mais amigável, se necessário
+                // Ex: "E-mail" para "email" no DB, mas mostrar "E-mail" na UI
+                columnNames.add(metaData.getColumnName(column));
+            }
+
+            // Dados das linhas
+            Vector<Vector<Object>> data = new Vector<>();
+            while (rs.next()) {
+                Vector<Object> row = new Vector<>();
+                for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                    row.add(rs.getObject(columnIndex));
+                }
+                data.add(row);
+            }
+
+            // Retorna um modelo de tabela padrão com os dados e nomes de colunas
+            return new DefaultTableModel(data, columnNames);
+
         }
     }
 
