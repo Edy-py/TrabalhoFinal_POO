@@ -5,3 +5,4 @@ BancoDeDados/*.iml
 out/
 BancoDeDados/*.xml
 BancoDeDados/target
+.idea/modules.xml
