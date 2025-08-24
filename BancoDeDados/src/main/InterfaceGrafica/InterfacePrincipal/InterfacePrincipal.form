@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="InterfaceGrafica.InterfacePrincipal">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="InterfaceGrafica.InterfacePrincipal.InterfacePrincipal">
   <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
@@ -58,20 +58,7 @@
             </constraints>
             <properties/>
             <border type="none"/>
-            <children>
-              <component id="d3107" class="javax.swing.JLabel">
-                <constraints border-constraint="North"/>
-                <properties>
-                  <text value="Clientes"/>
-                </properties>
-              </component>
-              <grid id="c9b82" layout-manager="BorderLayout" hgap="0" vgap="0">
-                <constraints border-constraint="West"/>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
-            </children>
+            <children/>
           </grid>
           <grid id="6c119" binding="locarPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>

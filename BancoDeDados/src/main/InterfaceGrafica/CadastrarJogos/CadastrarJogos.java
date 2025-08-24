@@ -44,6 +44,7 @@ public class CadastrarJogos {
         preencherComboBox();
     }
 
+    //getter da classe para retornar o painel principal
     public JPanel getCadastrojogosPanel() {
         return cadastrojogosPanel;
     }

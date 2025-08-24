@@ -1,4 +1,4 @@
-package InterfaceGrafica;
+package InterfaceGrafica.LocarJogos;
 
 import javax.swing.*;
 
@@ -18,7 +18,7 @@ public class LocarJogos {
     private JLabel info4_Label;
     private JLabel getNome_Label;
 
-    //um getter para "mandar" esta interface para a principal.
+    //getter da classe para retornar o painel principal
     public JPanel getControlPane() {
         return controlPane;
     }
