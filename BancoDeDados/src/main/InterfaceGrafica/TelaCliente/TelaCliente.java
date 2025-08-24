@@ -41,16 +41,6 @@ public class TelaCliente {
         //atualizando a tabela com as mudancas
         tabelaPanel.setModel(new javax.swing.table.DefaultTableModel(dados, colunas));
 
-        //fazendo o botao abrir uma nova janela TelaCadastro
-        /*
-        cadastrarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaCadastro telaCadastro = new TelaCadastro();
-                telaCadastro.setVisible(true);
-            }
-        });
-         */
-
         //fazendo o botao abrir uma nova janela
         cadastrarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
