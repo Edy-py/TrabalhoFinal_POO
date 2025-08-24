@@ -144,8 +144,7 @@ public class GerenciadorBancoDados {
             Vector<String> columnNames = new Vector<>();
             int columnCount = metaData.getColumnCount();
             for (int column = 1; column <= columnCount; column++) {
-                // Renomeando colunas para um formato mais amigável, se necessário
-                // Ex: "E-mail" para "email" no DB, mas mostrar "E-mail" na UI
+
                 columnNames.add(metaData.getColumnName(column));
             }
 
