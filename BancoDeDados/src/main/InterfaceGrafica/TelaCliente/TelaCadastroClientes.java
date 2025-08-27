@@ -111,7 +111,7 @@ public class TelaCadastroClientes extends JDialog {
                     enderecoLabel.setForeground(Color.RED);
                     enderecoValido = false;
                 }else {
-                    enderecoLabel.setText("E-mail:");
+                    enderecoLabel.setText("Endereço:");
                     enderecoLabel.setForeground(Color.BLACK);
                 }
 
