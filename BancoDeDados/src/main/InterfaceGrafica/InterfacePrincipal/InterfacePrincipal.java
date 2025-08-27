@@ -2,6 +2,7 @@ package InterfaceGrafica.InterfacePrincipal;
 
 import InterfaceGrafica.CadastrarJogos.CadastrarJogos;
 import InterfaceGrafica.LocarJogos.LocarJogos;
+import InterfaceGrafica.ReceberTela.ReceberTela;
 import InterfaceGrafica.TelaCliente.TelaCliente;
 
 import javax.swing.*;
@@ -37,6 +38,7 @@ public class InterfacePrincipal {
         LocarJogos locarJogosInter = new LocarJogos();
         CadastrarJogos cadastrarJogosInter = new CadastrarJogos();
         TelaCliente telaClienteInter = new TelaCliente();
+        ReceberTela telaReceberInter = new ReceberTela();
 
         //atribuindo outras interfaces aos cards que estão dentro da panelFuncoes
         locarPanel.setLayout(new BorderLayout());
@@ -47,6 +49,9 @@ public class InterfacePrincipal {
 
         clientesPanel.setLayout(new BorderLayout());
         clientesPanel.add(telaClienteInter.getMainCliente(),  BorderLayout.CENTER);
+
+        receberPanel.setLayout(new BorderLayout());
+        receberPanel.add(telaReceberInter.getReceberPanel(), BorderLayout.CENTER);
 
         //fazendo com que cada botão troque entre os cards do panelFuncoes
         clientesButton.addActionListener(e -> mostrarPainel("Card1"));

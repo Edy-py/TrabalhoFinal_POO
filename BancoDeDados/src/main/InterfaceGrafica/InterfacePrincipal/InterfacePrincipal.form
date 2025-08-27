@@ -82,14 +82,7 @@
             </constraints>
             <properties/>
             <border type="none"/>
-            <children>
-              <component id="cc3df" class="javax.swing.JLabel">
-                <constraints border-constraint="North"/>
-                <properties>
-                  <text value="Receber"/>
-                </properties>
-              </component>
-            </children>
+            <children/>
           </grid>
         </children>
       </grid>
