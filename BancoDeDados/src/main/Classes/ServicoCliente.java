@@ -5,7 +5,9 @@ public class ServicoCliente {
     // verificar se nome válido
     public static boolean verificarNome(String nome){
         String regex = "[a-zA-ZáàâãéèêíïóôõöúüçÁÀÂÃÉÈÊÍÏÓÔÕÖÚÜÇ\\s]+"; // expressão regular que permite assentos, letras maiusculas e minúculas e não permite valores numéricos.
-
+        if(nome.length() < 3){
+            return false;
+        }
         return nome.matches(regex); // Retorna true se estiver no formato da String regex
 
     }
@@ -35,7 +37,7 @@ public class ServicoCliente {
     }
 
     public static boolean verificarEmail(String email){
-        String regex = "^([a-zA-Z0-9_\\\\-\\\\.]+)@([a-zA-Z0-9_\\\\-\\\\.]+)\\\\.([a-zA-Z]{2,5})$"; // expressão regular para email
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"; // expressão regular para email
 
         return email.matches(regex); // Retorna true se estiver no formato da String regex
 

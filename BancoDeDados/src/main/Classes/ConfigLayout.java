@@ -8,7 +8,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 public class ConfigLayout {
-    private static String msg = "Dado inválido!";
+
 
     public static void exemploDeTexto(JTextField campo, String exemplo){
 
@@ -21,7 +21,7 @@ public class ConfigLayout {
         FocusListener focusListener = new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if(campo.getText().equals(exemplo) || campo.getText().equals(exemplo + "-> Campo Obrigatório!!") || campo.getText().equals(msg)){
+                if(campo.getText().equals(exemplo) || campo.getText().equals(exemplo + "-> Campo Obrigatório!!")){
                     campo.setText("");
                     campo.setForeground(Color.black);
                     campo.setHorizontalAlignment(JTextField.LEFT);

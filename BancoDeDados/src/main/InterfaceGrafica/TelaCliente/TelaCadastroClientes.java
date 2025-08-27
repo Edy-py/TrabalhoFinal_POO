@@ -26,6 +26,8 @@ public class TelaCadastroClientes extends JDialog {
     public TelaCadastroClientes() {
         super();
 
+
+
         String exNome = "Digite o nome do cliente: ";
         String exEndereco = "Rua, Bairro, Casa, Cidade";
         String exTelefone = "Digite o telefone do cliente: (64) 99999-9999";
@@ -39,65 +41,110 @@ public class TelaCadastroClientes extends JDialog {
         ConfigLayout.exemploDeTexto(email, exEmail);
 
 
-        cadastrarButton.addActionListener(e -> {
-            String comando = e.getActionCommand();
-            if(comando.equals("Cadastrar")){
 
-                if (!ConfigLayout.verificarCampoObrigatorio(nome, exNome) && !ServicoCliente.verificarNome(nome.getText())) {
+        cadastrarButton.addActionListener(e -> {
+            boolean nomeValido = true;
+            boolean cpfValido = true;
+            boolean telefoneValido = true;
+            boolean emailValido = true;
+            boolean enderecoValido = true;
+
+
+
+                if (!ConfigLayout.verificarCampoObrigatorio(nome, exNome)) {
+                    nomeLabel.setText("Nome é obrigatório!");
+                    nomeLabel.setForeground(Color.RED);
+                    nomeValido = false;
+                } else if (!ServicoCliente.verificarNome(nome.getText())) {
                     nomeLabel.setText("Nome inválido!");
                     nomeLabel.setForeground(Color.RED);
-                    return; // Interrompe a execução
+                    nomeValido = false;
+                } else {
+                    nomeLabel.setText("Nome:");
+                    nomeLabel.setForeground(Color.BLACK);
                 }
 
-                // Se chegou até aqui, o nome é válido. Podemos limpar a mensagem de erro.
-                nomeLabel.setText("Nome:");
-                nomeLabel.setForeground(Color.BLACK); // ou a cor padrão
 
-
-                if (!ConfigLayout.verificarCampoObrigatorio(cpf, exNome) && !ServicoCliente.ehCPFValido(cpf.getText())) {
-                    cpfLabel.setText("Cpf inválido!");
+                if (!ConfigLayout.verificarCampoObrigatorio(cpf, exCpf)) {
+                    cpfLabel.setText("CPF é obrigatório!");
                     cpfLabel.setForeground(Color.RED);
-                    return; // Interrompe a execução
+                    cpfValido = false;
+                } else if (!ServicoCliente.ehCPFValido(cpf.getText())) {
+                    cpfLabel.setText("CPF inválido!");
+                    cpfLabel.setForeground(Color.RED);
+                    cpfValido = false;
+                } else {
+                    cpfLabel.setText("CPF:");
+                    cpfLabel.setForeground(Color.BLACK);
                 }
 
-                // Se chegou até aqui, o nome é válido. Podemos limpar a mensagem de erro.
-                cpfLabel.setText("CPF:");
-                cpfLabel.setForeground(Color.BLACK); // ou a cor padrão
 
-
-                if (!ConfigLayout.verificarCampoObrigatorio(telefone, exNome) && !ServicoCliente.ehTelefoneValido(telefone.getText())) {
+                if (!ConfigLayout.verificarCampoObrigatorio(telefone, exTelefone)) {
+                    telefoneLabel.setText("Telefone é obrigatório!");
+                    telefoneLabel.setForeground(Color.RED);
+                    telefoneValido = false;
+                } else if (!ServicoCliente.ehTelefoneValido(telefone.getText())) {
                     telefoneLabel.setText("Telefone inválido!");
-                    telefoneLabel.setForeground(Color.red);
-                    return;
+                    telefoneLabel.setForeground(Color.RED);
+                    telefoneValido = false;
+                } else {
+                    telefoneLabel.setText("Telefone:");
+                    telefoneLabel.setForeground(Color.BLACK);
                 }
 
-                telefoneLabel.setText("Telefone:");
-                telefoneLabel.setForeground(Color.black);
-
-
-                if (!ConfigLayout.verificarCampoObrigatorio(email, exNome) && !ServicoCliente.verificarEmail(email.getText())) {
-
-                    emailLabel.setText("Telefone inválido!");
-                    emailLabel.setForeground(Color.red);
-                    return;
-                }
-                emailLabel.setText("");
-                emailLabel.setForeground(Color.black);
-                email.setText("");
-
-                if (!ConfigLayout.verificarCampoObrigatorio(endereco, exNome)) {
-                    return;
+                if (!ConfigLayout.verificarCampoObrigatorio(email, exEmail)) {
+                    emailLabel.setText("E-mail é obrigatório!");
+                    emailLabel.setForeground(Color.RED);
+                    emailValido = false;
+                } else if (!ServicoCliente.verificarEmail(email.getText())) {
+                    emailLabel.setText("E-mail inválido!");
+                    emailLabel.setForeground(Color.RED);
+                    emailValido = false;
+                } else {
+                    emailLabel.setText("E-mail:");
+                    emailLabel.setForeground(Color.BLACK);
                 }
 
-                // Fecha a janela de cadastro após cadastrado com sucesso.
-                SwingUtilities.getWindowAncestor(cadastroclientePanel).dispose();
 
-                JOptionPane.showMessageDialog(null, "" + nome.getText() + " cadastrado com sucesso!", "Cliente Cadastrado", JOptionPane.INFORMATION_MESSAGE);
-
-            }else{
-
-                    JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos obrigatórios.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+                if (!ConfigLayout.verificarCampoObrigatorio(endereco, exEndereco)) {
+                    enderecoLabel.setText("Endereço é obrigatório!");
+                    enderecoLabel.setForeground(Color.RED);
+                    enderecoValido = false;
+                }else {
+                    enderecoLabel.setText("E-mail:");
+                    enderecoLabel.setForeground(Color.BLACK);
                 }
+
+                if(nomeValido && cpfValido && telefoneValido && emailValido && enderecoValido){
+
+
+
+                    JOptionPane.showMessageDialog(null, "" + nome.getText() + " cadastrado com sucesso!", "Cliente Cadastrado", JOptionPane.INFORMATION_MESSAGE);
+                    // Fecha a janela de cadastro após cadastrado com sucesso.
+                    SwingUtilities.getWindowAncestor(cadastroclientePanel).dispose();
+                }
+                else if(!nomeValido && !cpfValido && !telefoneValido && !emailValido && !enderecoValido){
+                    JOptionPane.showMessageDialog(null, "Nenhum dado válido foi inserido", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+
+                }
+                else if(nomeValido && cpfValido && telefoneValido && !emailValido){
+                    JOptionPane.showMessageDialog(null, "E-mail inválido!", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+                }
+                else if(nomeValido && cpfValido && !telefoneValido && emailValido){
+                    JOptionPane.showMessageDialog(null, "Telefone inválido", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+                }
+                else if(nomeValido && !cpfValido && telefoneValido && emailValido){
+                    JOptionPane.showMessageDialog(null, "CPF inválido", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+                }
+                else if(!nomeValido && cpfValido && telefoneValido && emailValido){
+                    JOptionPane.showMessageDialog(null, "Nome inválido", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+                }
+
+
+
+
+
+
 
                 String nomeCliente = nome.getText();
                 String enderecoCliente = endereco.getText();
