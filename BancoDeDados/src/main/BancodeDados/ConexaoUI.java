@@ -1,0 +1,61 @@
+package BancodeDados;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Vector;
+
+public class ConexaoUI extends Component {
+
+
+    public static ArrayList<String> getInfoColuna( String nomeColuna, String tabela) throws SQLException {
+
+        try(Connection conn = ConexaoBanco.conectar()) {
+
+            String sql = "SELECT DISTINCT " + nomeColuna + " FROM " + tabela;
+            ArrayList<String> consoles = new ArrayList<>();
+
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+
+                while (rs.next()) {
+                    consoles.add(rs.getString(nomeColuna));
+                }
+
+            } catch (SQLException e) {
+                System.err.println("Erro ao buscar consoles: " + e.getMessage());
+            }
+            return consoles;
+        }
+    }
+
+    public DefaultTableModel buscarDadosFiltrados(Connection conn, String sql ,Vector<String> nomesColunasAmigaveis, Object valorFiltro) throws SQLException {
+
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                if(valorFiltro != null){
+
+                    pstmt.setString(1, "%" + valorFiltro + "%");
+                }
+
+                ResultSet rs = pstmt.executeQuery();
+
+                Vector<Vector<Object>> data = new Vector<>();
+                while (rs.next()) {
+                    // cria um vetor com as informações de cada linha da tabela
+                    Vector<Object> row = new Vector<>();
+                    for (int columnIndex = 1; columnIndex <= nomesColunasAmigaveis.size(); columnIndex++) {
+                        row.add(rs.getObject(columnIndex));
+                    }
+                    data.add(row);
+                }
+                return new DefaultTableModel(data, nomesColunasAmigaveis);
+            }
+
+
+    }
+}
+
+

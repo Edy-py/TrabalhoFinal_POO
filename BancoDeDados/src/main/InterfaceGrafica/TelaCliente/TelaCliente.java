@@ -1,8 +1,12 @@
 package InterfaceGrafica.TelaCliente;
 
+import BancodeDados.CarregamentoDeDados;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.util.Vector;
 
 /**
  * Esta classe representa a janela principal que exibe os clientes em uma tabela.
@@ -23,6 +27,24 @@ public class TelaCliente {
     private JTextField buscaTextField;
     private JButton buscarButton;
 
+    private String colunas = "id,nome,cpf,email,telefone,endereco,status";
+    private String tabela = "clientes";
+    private String sql = "SELECT " + colunas + " FROM " + tabela + " WHERE status LIKE ? ";
+    private String sqlSemFiltro = "SELECT " + colunas + " FROM " + tabela;
+
+    public Vector<String> mudarNomeDasColunas(){
+        Vector<String> nomesAmigaveis = new Vector<>();
+        nomesAmigaveis.add("ID_Cliente");
+        nomesAmigaveis.add("Nome");
+        nomesAmigaveis.add("CPF");
+        nomesAmigaveis.add("E-mail");
+        nomesAmigaveis.add("Telefone");
+        nomesAmigaveis.add("Endereço");
+        nomesAmigaveis.add("Status");
+
+        return nomesAmigaveis;
+    }
+
 
     //Metodo para preencher a combobox
     private void preencherComboBox() {
@@ -32,14 +54,27 @@ public class TelaCliente {
     }
 
     public TelaCliente() {
-        //definindo um modelo para a tabela
-        String[] colunas = {"Nome", "CPF", "Telefone", "Status", "Ações"}; //configurando o nome das colunas
-        Object[][] dados = {}; // vazio por enquanto, linkar com o banco de dados
-        //Codigo dando erro, vou ver se arrumo depois
-        //tabelaPanel.getColumnModel().getColumn(3).setPreferredWidth(80);
 
-        //atualizando a tabela com as mudancas
-        tabelaPanel.setModel(new javax.swing.table.DefaultTableModel(dados, colunas));
+        CarregamentoDeDados threadSemfiltro = new CarregamentoDeDados(sqlSemFiltro, null, mudarNomeDasColunas(), tabelaPanel);
+        threadSemfiltro.execute();
+
+        filtroCombobox.addItemListener(e -> {
+
+            if(e.getStateChange() == ItemEvent.SELECTED){
+
+                String filtro = filtroCombobox.getSelectedItem().toString();
+
+                if ("Todos".equals(filtro)) {
+                    CarregamentoDeDados thread = new CarregamentoDeDados(sqlSemFiltro, null, mudarNomeDasColunas(), tabelaPanel);
+                    thread.execute();
+
+                }
+                else {
+                    CarregamentoDeDados thread = new CarregamentoDeDados(sql, filtro, mudarNomeDasColunas(), tabelaPanel);
+                    thread.execute();
+                }
+            }
+        });
 
         //fazendo o botao abrir uma nova janela
         cadastrarButton.addActionListener(new ActionListener() {
@@ -53,35 +88,6 @@ public class TelaCliente {
         preencherComboBox();
     }
 
-    /**
-     * Método responsável por conectar ao banco, buscar os dados e popular a JTable.
-     */
-
-    //vou comentar esse metodo por enquanto:
-    /*
-    private void carregarDados() {
-        try (Connection conn = ConexaoBanco.conectar()) {
-            // Usa o método que criamos no GerenciadorBancoDados.
-            // Ele já retorna os dados no formato que a JTable precisa (DefaultTableModel).
-            // Lembre-se que renomeamos a tabela para "clientes" (minúsculo).
-            DefaultTableModel model = GerenciadorBancoDados.buscarDadosParaTabela(conn, "clientes");
-
-            // Define o modelo de dados na nossa JTable. É esta linha que preenche a tabela visualmente.
-            TabelaCliente.setModel(model);
-            System.out.println("Dados carregados com sucesso na tabela!");
-
-        } catch (SQLException e) {
-            // Se der um erro, exibe uma mensagem amigável para o usuário.
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Erro ao carregar dados do banco de dados: " + e.getMessage(),
-                    "Erro de Conexão",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            e.printStackTrace(); // Também imprime o erro detalhado no console para o desenvolvedor.
-        }
-    }
-    */
 
     //getter da classe para retornar o painel principal
     public JPanel getMainCliente() {return MainCliente;}
