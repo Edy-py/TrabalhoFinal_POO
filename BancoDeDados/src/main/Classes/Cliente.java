@@ -58,25 +58,7 @@ public class Cliente {
 
 
      */
-    public class ValidadorCPF {
 
-        public boolean isCPFValido(String cpf) {
-            // Remove caracteres não numéricos
-            cpf = cpf.replaceAll("\\D", ""); //
 
-            // Verifica se o CPF tem 11 dígitos
-            if (cpf.length() != 11 || cpf.matches("(\\d)\\1{10}")) {
-                return false;
-            }
 
-            // cadastrarCliente() : void
-            // editarCliente() : void
-            // locarJogo() : void
-            // devolverJogo() : void
-            // isCPF() : boolean
-            // isTelefone() : boolean
-            // isEmail() : boolean
-            return true;
-        }
-    }
 }
