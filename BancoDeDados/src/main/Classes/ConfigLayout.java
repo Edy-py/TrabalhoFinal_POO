@@ -12,7 +12,12 @@ public class ConfigLayout {
 
     public static void exemploDeTexto(JTextField campo, String exemplo){
 
+        /*
+        * Essa função é responsável
+        *
+        * */
 
+        // Define configuração inicial do JTextField
         campo.setForeground(Color.gray);
         campo.setFont(new Font("Arial", Font.PLAIN, 14));
 
@@ -71,6 +76,30 @@ public class ConfigLayout {
                 botao.doClick();
             }
         });
+    }
+
+
+    public static void infoBusca(JTextField campo){
+
+        FocusListener focusListener = new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if(campo.getText().equals("Buscar por cpf") || campo.getText().equals("Cpf não encontrado!") || campo.getText().equals("Cpf inválido!")){
+                    campo.setText("");
+                    campo.setForeground(Color.black);
+                    campo.setHorizontalAlignment(JTextField.LEFT);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(campo.getText().isEmpty()){
+                    campo.setForeground(Color.BLACK);
+                    campo.setText("Buscar por cpf");
+                    campo.setHorizontalAlignment(JTextField.CENTER);
+                }
+            }
+        };
+        campo.addFocusListener(focusListener);
     }
 
 

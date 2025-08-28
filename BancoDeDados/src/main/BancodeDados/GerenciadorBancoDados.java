@@ -8,8 +8,8 @@ import java.util.Vector;
 
 public class GerenciadorBancoDados {
 
-    public static void inserirDadosCliente(String nome, String email, String cpf,String endereco,String telefone,String status, String tabela) throws SQLException {
-        try (Connection conn = ConexaoBanco.conectar()){
+    public static void inserirDadosCliente(Connection conn, String nome, String email, String cpf,String endereco,String telefone,String status, String tabela) throws SQLException {
+
             String sql = "INSERT INTO " + tabela + " (nome, endereco, telefone, cpf, email, status) VALUES (?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, nome);
@@ -22,7 +22,7 @@ public class GerenciadorBancoDados {
                 System.out.println("Inserido: " + nome); // mudar para um JOpitionpane
             }
         }
-    }
+
 
     public static void inserirDadosJogos(String nome, int publicacao, String console, String classificacao, int anoLancamento, int estoque, int disponivel, double preco, String tabela) throws SQLException {
         try(Connection conn = ConexaoBanco.conectar()){
