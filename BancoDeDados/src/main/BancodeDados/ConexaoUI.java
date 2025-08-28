@@ -56,6 +56,16 @@ public class ConexaoUI extends Component {
 
 
     }
+
+    public static Connection conectar() throws SQLException {
+        try {
+            return ConexaoBanco.conectar();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
 
 

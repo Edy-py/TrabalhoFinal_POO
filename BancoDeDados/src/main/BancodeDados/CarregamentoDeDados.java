@@ -24,7 +24,7 @@ public class CarregamentoDeDados extends SwingWorker<DefaultTableModel, Void> {
 
 
 
-    @Override
+
     protected DefaultTableModel doInBackground() throws Exception {
         return new ConexaoUI().buscarDadosFiltrados(ConexaoBanco.conectar(), sql, nomesColunasAmigaveis, valorFiltro);
     }
@@ -40,4 +40,5 @@ public class CarregamentoDeDados extends SwingWorker<DefaultTableModel, Void> {
             throw new RuntimeException(e);
         }
     }
+
 }
