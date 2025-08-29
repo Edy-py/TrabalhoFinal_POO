@@ -1,17 +1,12 @@
 package InterfaceGrafica.CadastrarJogos;
 
 import BancodeDados.CarregamentoDeDados;
-import BancodeDados.ConexaoBanco;
 import BancodeDados.ConexaoUI;
-import BancodeDados.GerenciadorBancoDados;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -27,6 +22,7 @@ public class CadastrarJogos {
     private JScrollPane scrollerPanel;
     private JTable tabelaPanel;
     private JButton cadastrarButton;
+    private JButton atualizarButton;
 
     private String colunas = "id,nome,publicacao,console,classificacao,ano_lancamento,quantidade,quantidade_disponivel,preco";
     private String tabela = "jogos";

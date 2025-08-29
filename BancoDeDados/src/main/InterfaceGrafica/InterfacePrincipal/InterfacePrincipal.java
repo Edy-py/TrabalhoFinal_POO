@@ -42,7 +42,7 @@ public class InterfacePrincipal {
 
         //atribuindo outras interfaces aos cards que estão dentro da panelFuncoes
         locarPanel.setLayout(new BorderLayout());
-        locarPanel.add(locarJogosInter.getControlPane(), BorderLayout.CENTER);
+        locarPanel.add(locarJogosInter.getControlPanel(), BorderLayout.CENTER);
 
         jogosPanel.setLayout(new BorderLayout());
         jogosPanel.add(cadastrarJogosInter.getCadastrojogosPanel(), BorderLayout.CENTER);

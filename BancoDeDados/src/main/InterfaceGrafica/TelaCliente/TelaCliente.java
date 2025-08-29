@@ -31,6 +31,7 @@ public class TelaCliente {
     private JPanel topo2Panel;
     private JTextField buscaTextField;
     private JButton buscarButton;
+    private JButton atualizarButton;
 
     // Variáveis globais
     private String colunas = "id,nome,cpf,email,telefone,endereco,status";

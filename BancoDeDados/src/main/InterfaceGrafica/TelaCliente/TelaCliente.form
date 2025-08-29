@@ -27,6 +27,12 @@
                 <constraints/>
                 <properties/>
               </component>
+              <component id="c2ccb" class="javax.swing.JButton" binding="atualizarButton" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Atualizar"/>
+                </properties>
+              </component>
             </children>
           </grid>
           <component id="63e6f" class="javax.swing.JLabel" binding="clientesLabel">

@@ -1,7 +1,5 @@
 package InterfaceGrafica.ReceberTela;
 
-import InterfaceGrafica.TelaCliente.TelaCadastroClientes;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +17,7 @@ public class ReceberTela {
     private JLabel receberLabel;
     private JTable tabelaPanel;
     private JButton receberButton;
+    private JButton atualizarButton;
 
     private String colunas = "id,nome,cpf,jogo_alugado,status";
 
