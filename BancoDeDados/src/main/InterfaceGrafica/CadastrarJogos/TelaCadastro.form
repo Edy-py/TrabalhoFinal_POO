@@ -64,7 +64,7 @@
           <text value="Preço Diário:"/>
         </properties>
       </component>
-      <component id="2e9cb" class="javax.swing.JTextField" binding="nomeTextfield">
+      <component id="2e9cb" class="javax.swing.JTextField" binding="nomeJogo">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -72,7 +72,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="39aa8" class="javax.swing.JTextField" binding="publisherTextfield">
+      <component id="39aa8" class="javax.swing.JTextField" binding="publisher">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -86,15 +86,17 @@
         </constraints>
         <properties/>
       </component>
-      <component id="1f379" class="javax.swing.JTextField" binding="anolancamentoTextfield">
+      <component id="1f379" class="javax.swing.JTextField" binding="anoLancamento">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
-      <component id="2d106" class="javax.swing.JTextField" binding="quantidadeTextfield">
+      <component id="2d106" class="javax.swing.JTextField" binding="quantidade">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -102,7 +104,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="972c" class="javax.swing.JTextField" binding="precoTextfield">
+      <component id="972c" class="javax.swing.JTextField" binding="preco">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -110,7 +112,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="eef51" class="javax.swing.JTextField" binding="consoleTextfield">
+      <component id="eef51" class="javax.swing.JTextField" binding="console">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>

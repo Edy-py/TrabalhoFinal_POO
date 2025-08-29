@@ -24,12 +24,12 @@ public class GerenciadorBancoDados {
         }
 
 
-    public static void inserirDadosJogos(String nome, int publicacao, String console, String classificacao, int anoLancamento, int estoque, int disponivel, double preco, String tabela) throws SQLException {
+    public static void inserirDadosJogos(String nome, String publicacao, String console, String classificacao, Integer anoLancamento, Integer estoque, Integer disponivel, Double preco, String tabela) throws SQLException {
         try(Connection conn = ConexaoBanco.conectar()){
             String sql = "INSERT INTO " + tabela + " (nome, publicacao,console, classificacao, ano_lancamento, quantidade, quantidade_disponivel, preco) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, nome);
-                pstmt.setInt(2, publicacao);
+                pstmt.setString(2, publicacao);
                 pstmt.setString(3, console);
                 pstmt.setString(4, classificacao);
                 pstmt.setInt(5, anoLancamento);

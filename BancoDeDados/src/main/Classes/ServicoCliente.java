@@ -50,6 +50,18 @@ public class ServicoCliente {
 
     }
 
+    public static String formatarTelefone(String telefone){
+        return  telefone.replaceFirst(
+                "(\\d{2})(\\d{1})(\\d{4})(\\d{4})",
+                "($1) $2 $3-$4"
+        );
+    }
+
+    public static String formatarCpf(String cpf){
+        return  cpf.replaceFirst("(\\d{3})(\\d{3})(\\d{3})(\\d{2})",
+                "$1.$2.$3-$4");
+    }
+
     // Método que verifica se o cpf já foi cadastrado no banco de dados
     public static boolean ehCpfRepetido(Connection conn, String cpf) {
             String sql = "SELECT COUNT(*) FROM clientes WHERE cpf = ?";

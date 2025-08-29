@@ -30,8 +30,8 @@ public class CadastrarJogos {
 
     private String colunas = "id,nome,publicacao,console,classificacao,ano_lancamento,quantidade,quantidade_disponivel,preco";
     private String tabela = "jogos";
-    private String sql = "SELECT " + colunas + " FROM " + tabela + " WHERE console LIKE ? ";
-    private String sqlSemFiltro = "SELECT " + colunas + " FROM " + tabela;
+    private String sql = "SELECT " + colunas + " FROM " + tabela + " WHERE console LIKE ? ORDER BY nome ASC";
+    private String sqlSemFiltro = "SELECT " + colunas + " FROM " + tabela + " ORDER BY nome ASC";
 
     public Vector<String> mudarNomeDasColunas(){
         Vector<String> nomesAmigaveis = new Vector<>();

@@ -173,7 +173,7 @@ public class TelaCadastroClientes extends JDialog {
                     String emailCliente = email.getText();
 
                     // Insere os dados no banco de dados.
-                    GerenciadorBancoDados.inserirDadosCliente(con, nomeCliente,emailCliente,cpfCliente,enderecoCliente,telefoneCliente,null,tabela);
+                    GerenciadorBancoDados.inserirDadosCliente(con, nomeCliente,emailCliente,ServicoCliente.formatarCpf(cpfCliente),enderecoCliente,ServicoCliente.formatarTelefone(telefoneCliente),null,tabela);
 
                     // Exibe uma mensagem de sucesso na tela.
                     JOptionPane.showMessageDialog(null, "" + nome.getText() + " cadastrado com sucesso no banco de dados!", "Cliente Cadastrado", JOptionPane.INFORMATION_MESSAGE);

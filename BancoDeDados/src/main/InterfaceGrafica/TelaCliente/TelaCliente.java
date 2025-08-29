@@ -35,9 +35,9 @@ public class TelaCliente {
     // Variáveis globais
     private String colunas = "id,nome,cpf,email,telefone,endereco,status";
     private String tabela = "clientes";
-    private String sql = "SELECT " + colunas + " FROM " + tabela + " WHERE status LIKE ? ";
-    private String sqlConsulta = "SELECT " + colunas + " FROM " + tabela + " WHERE cpf LIKE ? ";
-    private String sqlSemFiltro = "SELECT " + colunas + " FROM " + tabela;
+    private String sql = "SELECT " + colunas + " FROM " + tabela + " WHERE status LIKE ? ORDER BY nome ASC";
+    private String sqlConsulta = "SELECT " + colunas + " FROM " + tabela + " WHERE cpf LIKE ? ORDER BY nome ASC";
+    private String sqlSemFiltro = "SELECT " + colunas + " FROM " + tabela + " ORDER BY nome ASC";
 
     // Função para alterar o nome das colunas da tabela
     public Vector<String> mudarNomeDasColunas(){

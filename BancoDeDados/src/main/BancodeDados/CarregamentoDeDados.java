@@ -2,6 +2,7 @@ package BancodeDados;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 
@@ -33,7 +34,16 @@ public class CarregamentoDeDados extends SwingWorker<DefaultTableModel, Void> {
     // semelhante ao método run de um thread
     protected void done() {
         try {
-             tabela.setModel(get());
+            DefaultTableModel modelo = get();
+
+            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+
+            tabela.setRowSorter(sorter);
+
+            tabela.setModel(modelo);
+
+
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
