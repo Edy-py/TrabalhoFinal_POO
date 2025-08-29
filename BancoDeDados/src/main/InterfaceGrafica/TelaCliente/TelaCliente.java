@@ -31,6 +31,7 @@ public class TelaCliente {
     private JPanel topo2Panel;
     private JTextField buscaTextField;
     private JButton buscarButton;
+    private JButton editarButton;
     private JButton atualizarButton;
 
     // Variáveis globais
@@ -98,9 +99,16 @@ public class TelaCliente {
         //fazendo o botao abrir uma nova janela
         cadastrarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
                 TelaCadastroClientes telaCadastroClientes = new TelaCadastroClientes();
                 telaCadastroClientes.setVisible(true);
+            }
+        });
+
+        //fazendo o botao abrir uma nova janela
+        editarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                EditarCliente editarCliente = new EditarCliente();
+                editarCliente.setVisible(true);
             }
         });
 
