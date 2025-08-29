@@ -58,8 +58,9 @@ public class TelaCliente {
 
     //Metodo para preencher a combobox
     private void preencherComboBox() {
-        filtroCombobox.addItem("Devendo");
-        filtroCombobox.addItem("Alugando");
+        filtroCombobox.addItem("Pemdente");
+        filtroCombobox.addItem("Ativo");
+        filtroCombobox.addItem("Inativo");
         filtroCombobox.addItem("Todos");
     }
 
@@ -81,8 +82,12 @@ public class TelaCliente {
 
                 // Todos os clientes
                 if ("Todos".equals(filtro)) {
+
+
                     CarregamentoDeDados thread = new CarregamentoDeDados(sqlSemFiltro, null, mudarNomeDasColunas(), tabelaPanel);
                     thread.execute();
+
+
 
                 }
 
@@ -92,9 +97,17 @@ public class TelaCliente {
                     // Uma thread é responsável por fazer a consulta no banco de dados e carregar os dados na tabela
                     CarregamentoDeDados thread = new CarregamentoDeDados(sql, filtro, mudarNomeDasColunas(), tabelaPanel);
                     thread.execute();
+
+
                 }
+
+
             }
         }); // fim da lambda
+
+
+
+
 
         //fazendo o botao abrir uma nova janela
         cadastrarButton.addActionListener(new ActionListener() {
@@ -166,6 +179,9 @@ public class TelaCliente {
 
         //chamando o metodo que preenche a combobox
         preencherComboBox();
+
+        // botão atualizar
+        ConfigLayout.configurarBotaoAtualizar(atualizarButton,filtroCombobox,tabelaPanel,sql,sqlSemFiltro,mudarNomeDasColunas());
 
         // Explicação na classe "ConfigLayout"
         ConfigLayout.infoBusca(buscaTextField);

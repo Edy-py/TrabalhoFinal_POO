@@ -1,23 +1,18 @@
 package Classes;
 
+import BancodeDados.CarregamentoDeDados;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Vector;
 
 public class ConfigLayout {
 
-    private String filtro;
 
-    public String getFiltro() {
-        return filtro;
-    }
-
-    public void setFiltro(String filtro) {
-        this.filtro = filtro;
-    }
 
 
     public static void exemploDeTexto(JTextField campo, String exemplo) {
@@ -130,4 +125,21 @@ public class ConfigLayout {
         };
         campo.addFocusListener(focusListener);
     }
+
+    // Atualiza a tabela na UI
+    public static void configurarBotaoAtualizar(JButton botao, JComboBox<String> filtroCombobox, JTable tabelaPanel,
+                                                String sql, String sqlSemFiltro, Vector<String> nomesColunas) {
+        botao.addActionListener(e -> {
+            String filtro = filtroCombobox.getSelectedItem().toString();
+
+            if ("Todos".equals(filtro)) {
+                CarregamentoDeDados thread = new CarregamentoDeDados(sqlSemFiltro, null, nomesColunas, tabelaPanel);
+                thread.execute();
+            } else {
+                CarregamentoDeDados thread = new CarregamentoDeDados(sql, filtro, nomesColunas, tabelaPanel);
+                thread.execute();
+            }
+        });
+    }
+
 }
