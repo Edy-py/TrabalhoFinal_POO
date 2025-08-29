@@ -2,6 +2,7 @@ package InterfaceGrafica.CadastrarJogos;
 
 import BancodeDados.CarregamentoDeDados;
 import BancodeDados.ConexaoUI;
+import Classes.ConfigLayout;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -77,14 +78,17 @@ public class CadastrarJogos {
 
                 // Sem filtro
                 if ("Todos".equals(filtro)) {
+
                     CarregamentoDeDados thread = new CarregamentoDeDados(sqlSemFiltro, null, mudarNomeDasColunas(), tabelaPanel);
                     thread.execute();
 
                 }
                 else {
+
                         // Com filtro
                         CarregamentoDeDados thread = new CarregamentoDeDados(sql, filtro, mudarNomeDasColunas(), tabelaPanel);
                         thread.execute();
+
                 }
 
             }
@@ -102,6 +106,8 @@ public class CadastrarJogos {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        ConfigLayout.configurarBotaoAtualizar(atualizarButton,filtroCombobox,tabelaPanel,sql,sqlSemFiltro,mudarNomeDasColunas());
     }
 
     //getter da classe para retornar o painel principal
