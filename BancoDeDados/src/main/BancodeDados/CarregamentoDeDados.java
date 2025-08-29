@@ -25,13 +25,13 @@ public class CarregamentoDeDados extends SwingWorker<DefaultTableModel, Void> {
 
 
 
-
+    // Busca os dados da tabela no banco de dados e retorna um modelo de tabela
     protected DefaultTableModel doInBackground() throws Exception {
         return new ConexaoUI().buscarDadosFiltrados(ConexaoBanco.conectar(), sql, nomesColunasAmigaveis, valorFiltro);
     }
 
     @Override
-    // semelhante ao método run de um thread
+    // semelhante ao método run de um thread, ensina para thread
     protected void done() {
         try {
             DefaultTableModel modelo = get();
@@ -45,9 +45,10 @@ public class CarregamentoDeDados extends SwingWorker<DefaultTableModel, Void> {
 
 
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null, "Erro ao carregar dados: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null, "Erro na execução, tente novamente mais tarde!", "Erro de execução", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 

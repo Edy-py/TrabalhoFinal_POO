@@ -1,14 +1,15 @@
 package InterfaceGrafica.CadastrarJogos;
 
+// import classes
 import BancodeDados.GerenciadorBancoDados;
 import Classes.ConfigLayout;
 import Classes.ServicoJogo;
 
+// imports libs
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ItemEvent;
 import java.sql.SQLException;
-import java.util.Vector;
+
 
 public class TelaCadastro extends JDialog{
 
@@ -30,7 +31,6 @@ public class TelaCadastro extends JDialog{
     private JTextField console;
     private JButton cadastrarButton;
 
-    private String colunas = "nome,publicacao,console,classificacao,ano_lancamento,quantidade,preco";
     private String tabela = "jogos";
 
     private String exNome = "Digite o nome do jogo: ";
@@ -56,6 +56,7 @@ public class TelaCadastro extends JDialog{
     public TelaCadastro() {
         super();
 
+        // Explicação na classe de configlayout
         ConfigLayout.exemploDeTexto(nomeJogo, exNome);
         ConfigLayout.exemploDeTexto(console, exConsole);
         ConfigLayout.exemploDeTexto(publisher, exPublicacao);
@@ -63,88 +64,107 @@ public class TelaCadastro extends JDialog{
         ConfigLayout.exemploDeTexto(quantidade, exQuantidade);
         ConfigLayout.exemploDeTexto(preco, exPreco);
 
+        // Faz o botão de cadastro funcionar
         cadastrarButton.addActionListener(e -> {
 
+            // flags
             boolean nomeValido = true;
             boolean consoleValido = true;
             boolean anoValido = true;
             boolean quantidadeValida = true;
             boolean precoValido = true;
-            boolean classificacaoValida = true;
 
 
 
+            // Verifica se o campo de nome do jogo está vazio
             if (!ConfigLayout.verificarCampoObrigatorio(nomeJogo,exNome)){
                 nomeLabel.setText("Nome obrigatorio!");
                 nomeLabel.setForeground(Color.RED);
                 nomeValido = false;
             }
+
+            // Caso contrario seta valores e cor padrão
             else {
                 nomeLabel.setText("Nome do Jogo: ");
                 nomeLabel.setForeground(Color.BLACK);
             }
 
+            // Verifica se o campo de publisher do jogo está vazio
             if (!ConfigLayout.verificarCampoObrigatorio(publisher,exPublicacao)){
                 publicacaoLabel.setText("Publisher obrigatorio!");
                 publicacaoLabel.setForeground(Color.RED);
                 consoleValido = false;
             }
+
+            // Caso contrario seta valores e cor padrão
             else {
                 publicacaoLabel.setText("Publisher do Jogo: ");
                 publicacaoLabel.setForeground(Color.BLACK);
             }
 
+            // Verifica se o campo de console do jogo está vazio
             if (!ConfigLayout.verificarCampoObrigatorio(console,exConsole)){
                 consoleLabel.setText("Console obrigatorio!");
                 consoleLabel.setForeground(Color.RED);
                 consoleValido = false;
             }
+
+            // Caso contrario seta valores e cor padrão
             else {
                 consoleLabel.setText("Console do Jogo: ");
                 consoleLabel.setForeground(Color.BLACK);
             }
 
+            // Verifica se o campo de ano de lançamento do jogo está vazio
             if (!ConfigLayout.verificarCampoObrigatorio(anoLancamento,exAno)){
                 anoLabel.setText("Ano obrigatorio!");
                 anoLabel.setForeground(Color.RED);
                 anoValido = false;
 
+                // verifica se é numérico
             }else if (!ServicoJogo.verificarAno(anoLancamento.getText())){
                 anoLabel.setText("Ano inválido!");
                 anoLabel.setForeground(Color.RED);
                 anoValido = false;
 
+                // Caso contrario seta valores e cor padrão
             }else {
                 anoLabel.setText("Ano do Jogo: ");
                 anoLabel.setForeground(Color.BLACK);
             }
 
+            // Verifica se o campo de nome do jogo está vazio
             if (!ConfigLayout.verificarCampoObrigatorio(quantidade,exQuantidade)){
                 quantidadeLabel.setText("Quantidade obrigatoria!");
                 quantidadeLabel.setForeground(Color.RED);
                 quantidadeValida = false;
 
+                // Verifica se é numérico
             }else if (!ServicoJogo.verificarQtd(quantidade.getText())){
                 quantidadeLabel.setText("Somente números!");
                 quantidadeLabel.setForeground(Color.RED);
                 quantidadeValida = false;
             }
 
+            // Caso contrario seta valores e cor padrão
             else {
                 quantidadeLabel.setText("Quantidade do Jogo: ");
                 quantidadeLabel.setForeground(Color.BLACK);
             }
 
+            // Verifica se o campo de nome do jogo está vazio
             if(!ConfigLayout.verificarCampoObrigatorio(preco,exPreco)){
                 precoLabel.setText("Peço é obigatório!");
                 precoLabel.setForeground(Color.RED);
                 precoValido = false;
 
+                // Verifica se é numérico
             } else if (!ServicoJogo.verificarPreco(preco.getText())){
                 precoLabel.setText("Somente números!");
                 precoLabel.setForeground(Color.RED);
                 precoValido = false;
 
+                // Caso contrario seta valores e cor padrão
             }else {
                 precoLabel.setText("Preço Diário: R$");
                 precoLabel.setForeground(Color.BLACK);
@@ -168,7 +188,7 @@ public class TelaCadastro extends JDialog{
                 try {
                     GerenciadorBancoDados.inserirDadosJogos(nome, publisherJogo, consoleJogo,classificacao, ano, estoque,estoque, precoDiario, tabela);
                 } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                    JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados", "Erro de Conexão!", JOptionPane.ERROR_MESSAGE);
                 }
 
                 // Exibe uma mensagem de sucesso na tela.
@@ -201,9 +221,16 @@ public class TelaCadastro extends JDialog{
         // Configura para que possamos pesquisar apertando a tecla "enter"
         ConfigLayout.addEnterFuncao(cadastrarButton, preco);
 
+        // Titulo
         setTitle("Cadastro de Jogos");
+
+        // Fechar no X
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+        // Definir tamanho
         setSize(600, 650);
+
+
         setLocationRelativeTo(null);
 
         //chamando o metodo que preenche a combobox
@@ -212,5 +239,4 @@ public class TelaCadastro extends JDialog{
         //adicionando o conteudo da panel cadastroPanel a nova janela que será criada
         this.add(cadastroPanel);
     }
-
 }
