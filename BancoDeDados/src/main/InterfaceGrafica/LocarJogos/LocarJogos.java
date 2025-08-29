@@ -3,6 +3,7 @@ package InterfaceGrafica.LocarJogos;
 import javax.swing.*;
 
 public class LocarJogos {
+    //declarando os atributos da tela
     private JPanel ControlPanel;
     private JPanel informacoesPanel;
     private JButton confirmarLocacaoButton;
@@ -17,6 +18,7 @@ public class LocarJogos {
     private JLabel precototalLabel;
     private JLabel inserirprecoLabel;
 
+    //getter da classe para mandar o panel principal para a tela principal
     public JPanel getControlPanel() {
         return ControlPanel;
     }
