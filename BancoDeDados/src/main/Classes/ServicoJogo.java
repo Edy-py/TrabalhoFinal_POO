@@ -2,20 +2,19 @@ package Classes;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
-import java.text.DecimalFormat;
+
 
 public class ServicoJogo {
-
+    //Transforma uma string numérica para inteiro
     public static int stringParaInt(String string){
 
             return Integer.parseInt(string);
 
     }
 
-
-
+    // Verifica se ano é válido
     public static boolean verificarAno(String ano){
-       String regex = "^\\d+$";
+       String regex = "^\\d+$"; // permite somente valores numéricos
 
        if (!ano.matches(regex)){
             return false;
@@ -23,26 +22,32 @@ public class ServicoJogo {
 
        int anoInt = stringParaInt(ano);
 
-       if(anoInt < 1952 || anoInt > 2021){
+       // Retorna falso se o ano não estiver no intervalo
+       if(anoInt < 1952 || anoInt > 2025){
+           // 1952 foi quando o primeiro jogo foi lançãdo
+           // 2025 ano atual
            return false;
        }
        return true;
-
-
     }
 
+    // Verifica se quantidade é um valor numérico
     public static boolean verificarQtd(String qtd){
-        String regex = "^\\d+$";
+        String regex = "^\\d+$"; // Só permite caracteres numérico
         return qtd.matches(regex);
     }
 
+    // Validação de preço
     public static boolean verificarPreco(String qtd){
-        String regex = "^\\d+([.,]\\d{1,2})?$";
+
+        String regex = "^\\d+([.,]\\d{1,2})?$"; // Permite caracteres numéricos separados por pontos ou por vírgula
 
         return qtd.matches(regex);
     }
 
+    // Transforma string em duoble
     public static double stringParaDouble(String string){
+
 
         try {
             // Remove espaços e caracteres especiais
@@ -51,20 +56,19 @@ public class ServicoJogo {
             // Substitui vírgula por ponto
             string = string.replace(",", ".");
 
-            // Verifica se o formato é válido usando regex mais flexível
+            // Verifica se o formato é válido usando regex
             if (!string.matches("^\\d*\\.?\\d+$")) {
-                throw new NumberFormatException("Valor inválido. Use apenas números e vírgula ou ponto como separador decimal.");
+                JOptionPane.showMessageDialog(null, "Valor inválido. Use apenas números e vírgula ou ponto como separador decimal.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
 
             // Converte para double
             return Math.round(Double.parseDouble(string) * 100.0) / 100.0;
 
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Valor inválido. Use apenas números e vírgula ou ponto como separador decimal.");
+            JOptionPane.showMessageDialog(null, "Valor inválido. Use apenas números e vírgula ou ponto como separador decimal.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
 
-
-
+        return 0;
     }
 
     public static String getItemSelecionado(JComboBox comboBox) {

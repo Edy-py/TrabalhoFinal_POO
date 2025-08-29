@@ -1,17 +1,13 @@
 package InterfaceGrafica.CadastrarJogos;
 
 import BancodeDados.CarregamentoDeDados;
-import BancodeDados.ConexaoBanco;
 import BancodeDados.ConexaoUI;
-import BancodeDados.GerenciadorBancoDados;
+import Classes.ConfigLayout;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -28,22 +24,27 @@ public class CadastrarJogos {
     private JTable tabelaPanel;
     private JButton cadastrarButton;
 
+    // Strings para consulta no banco de dados
     private String colunas = "id,nome,publicacao,console,classificacao,ano_lancamento,quantidade,quantidade_disponivel,preco";
     private String tabela = "jogos";
     private String sql = "SELECT " + colunas + " FROM " + tabela + " WHERE console LIKE ? ORDER BY nome ASC";
     private String sqlSemFiltro = "SELECT " + colunas + " FROM " + tabela + " ORDER BY nome ASC";
 
-    public Vector<String> mudarNomeDasColunas(){
+    // Essa função é usada para mudar o nome das colunas da tabela, só para mostrar na UI
+    private Vector<String> mudarNomeDasColunas(){
+
+        // Declaração de um objeto do tipo Vector para armazenar os nomes das colunas da tabela
         Vector<String> nomesAmigaveis = new Vector<>();
+
         nomesAmigaveis.add("Id_jogo");
         nomesAmigaveis.add("Nome");
         nomesAmigaveis.add("Publisher");
         nomesAmigaveis.add("Console");
-        nomesAmigaveis.add("Classificacao");
-        nomesAmigaveis.add("Ano_Lancamento");
+        nomesAmigaveis.add("Classificação");
+        nomesAmigaveis.add("Ano_Lançamento");
         nomesAmigaveis.add("Em_Estoque");
         nomesAmigaveis.add("Disponivel");
-        nomesAmigaveis.add("Preco");
+        nomesAmigaveis.add("Preço");
 
         return nomesAmigaveis;
     }
@@ -72,11 +73,14 @@ public class CadastrarJogos {
         CarregamentoDeDados threadSemfiltro = new CarregamentoDeDados(sqlSemFiltro, null, mudarNomeDasColunas(), tabelaPanel);
         threadSemfiltro.execute();
 
-
+        // faz o filto funcionar
         filtroCombobox.addItemListener(e -> {
             if(e.getStateChange() == ItemEvent.SELECTED){
                 // Filtro de acordo com o item selecionado na combobox
                 String filtro = filtroCombobox.getSelectedItem().toString();
+
+                ConfigLayout setFiltro = new ConfigLayout();
+                setFiltro.setFiltro(filtro);
 
 
                 // Sem filtro
@@ -94,6 +98,7 @@ public class CadastrarJogos {
             }
         });
 
+        // faz o botão de cadastro funcionar
         cadastrarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 TelaCadastro telaCadastro = new TelaCadastro();
@@ -104,7 +109,7 @@ public class CadastrarJogos {
         try {
             preencherComboBox();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null, "Erro na execução, tente novamente mais tarde!", "Erro de execução", JOptionPane.ERROR_MESSAGE);
         }
     }
 
