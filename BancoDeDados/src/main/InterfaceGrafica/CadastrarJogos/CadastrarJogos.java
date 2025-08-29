@@ -22,6 +22,7 @@ public class CadastrarJogos {
     private JScrollPane scrollerPanel;
     private JTable tabelaPanel;
     private JButton cadastrarButton;
+    private JButton excluirButton;
     private JButton atualizarButton;
 
     private String colunas = "id,nome,publicacao,console,classificacao,ano_lancamento,quantidade,quantidade_disponivel,preco";
@@ -90,10 +91,19 @@ public class CadastrarJogos {
             }
         });
 
+        //Fazendo o botao abrir uma nova janela
         cadastrarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 TelaCadastro telaCadastro = new TelaCadastro();
                 telaCadastro.setVisible(true);
+            }
+        });
+
+        //fazendo o botao abrir uma nova janela
+        excluirButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ExcluirJogos  excluirJogos = new ExcluirJogos();
+                excluirJogos.setVisible(true);
             }
         });
 

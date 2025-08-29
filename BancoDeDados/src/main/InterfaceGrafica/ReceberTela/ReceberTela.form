@@ -33,7 +33,7 @@
                 <constraints/>
                 <properties/>
               </component>
-              <component id="177" class="javax.swing.JButton" binding="atualizarButton" default-binding="true">
+              <component id="2e899" class="javax.swing.JButton" binding="atualizarButton" default-binding="true">
                 <constraints/>
                 <properties>
                   <text value="Atualizar"/>
