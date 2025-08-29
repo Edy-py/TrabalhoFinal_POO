@@ -37,15 +37,33 @@ public class ServicoJogo {
     }
 
     public static boolean verificarPreco(String qtd){
-        String regex = "^[0-9.]+$";
+        String regex = "^\\d+([.,]\\d{1,2})?$";
+
         return qtd.matches(regex);
     }
 
     public static double stringParaDouble(String string){
 
-        double valor = Double.parseDouble(string);
-        DecimalFormat df = new DecimalFormat("#.##");
-        return Double.parseDouble(df.format(valor));
+        try {
+            // Remove espaços e caracteres especiais
+            string = string.trim().replaceAll("[R$\\s]", "");
+
+            // Substitui vírgula por ponto
+            string = string.replace(",", ".");
+
+            // Verifica se o formato é válido usando regex mais flexível
+            if (!string.matches("^\\d*\\.?\\d+$")) {
+                throw new NumberFormatException("Valor inválido. Use apenas números e vírgula ou ponto como separador decimal.");
+            }
+
+            // Converte para double
+            return Math.round(Double.parseDouble(string) * 100.0) / 100.0;
+
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Valor inválido. Use apenas números e vírgula ou ponto como separador decimal.");
+        }
+
+
 
     }
 
