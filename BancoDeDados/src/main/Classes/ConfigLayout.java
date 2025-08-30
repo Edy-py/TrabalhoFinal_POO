@@ -100,6 +100,9 @@ public class ConfigLayout {
             @Override
             public void actionPerformed(ActionEvent e) {
                 botao.doClick();
+                campo.setText("");
+                campo.setForeground(Color.black);
+                campo.setHorizontalAlignment(JTextField.LEFT);
             }
         });
     }
