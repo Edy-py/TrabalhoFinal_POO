@@ -96,7 +96,7 @@ public class ExcluirJogos extends JDialog {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         // Configura o tamanho da janela
-        setSize(600, 500);
+        setSize(500, 400);
 
         // Fazendo a tela aparecer no centro da tela
         setLocationRelativeTo(null);
