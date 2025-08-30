@@ -26,6 +26,8 @@ public class LocarJogos {
     private JLabel precototalLabel;
     private JLabel inserirprecoLabel;
     private JTextField textField1;
+    private JComboBox filtroCombobox;
+    private JLabel filtrarLabel;
 
     private String tabela = "clientes";
     private String sqlCpf = "SELECT COUNT(*) FROM "+tabela+" WHERE cpf = ?";
