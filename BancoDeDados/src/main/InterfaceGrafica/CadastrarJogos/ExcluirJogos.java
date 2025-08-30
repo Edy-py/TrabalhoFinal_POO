@@ -75,6 +75,8 @@ public class ExcluirJogos extends JDialog {
                         SwingUtilities.getWindowAncestor(excluirJogosPanel).dispose();
                     }else {
                         JOptionPane.showMessageDialog(null,"Id do jogo não encontrado no banco de dados", "Id não encontrado", JOptionPane.ERROR_MESSAGE);
+
+                        idJogoTextField.setForeground(Color.BLACK);
                     }
                 }
 

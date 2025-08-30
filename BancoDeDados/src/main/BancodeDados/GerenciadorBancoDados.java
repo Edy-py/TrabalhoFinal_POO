@@ -73,6 +73,8 @@ public class GerenciadorBancoDados {
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, id);
 
+                pstmt.executeUpdate();
+
             }
             }
         }
