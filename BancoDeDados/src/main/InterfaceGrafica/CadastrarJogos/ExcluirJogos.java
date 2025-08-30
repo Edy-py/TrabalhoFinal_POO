@@ -20,7 +20,7 @@ public class ExcluirJogos extends JDialog {
     private JButton confirmarExclusaoButton;
 
     private String tabela = "jogos";
-    private String sqlID = "SELECT COUNT(*) FROM clientes WHERE id = ?";
+
 
     public  ExcluirJogos() {
         super();
@@ -50,6 +50,7 @@ public class ExcluirJogos extends JDialog {
                 }else {
                     IDJogoLabel.setText("Digite o ID:");
                     IDJogoLabel.setForeground(Color.BLACK);
+                    idJogoTextField.setForeground(Color.BLACK);
                 }
 
                 if(idValido){
@@ -58,8 +59,8 @@ public class ExcluirJogos extends JDialog {
 
                     if(ConexaoUI.buscaPorId(con, id, "nome", tabela) != null){
 
+                        IDJogoLabel.setText("Nome do jogo: " + ConexaoUI.buscaPorId(con, id, "nome",tabela));
                         int resposta = JOptionPane.showConfirmDialog(null, "Confirmar exclusão do jogo " + ConexaoUI.buscaPorId(con, id, "nome",tabela) + "?", "Excluir Jogo", JOptionPane.YES_NO_OPTION);
-                        nomedojogoselecionadoLabel.setText("Jogo " + ConexaoUI.buscaPorId(con, id, "nome",tabela));
 
                         if(resposta == JOptionPane.YES_OPTION){
 

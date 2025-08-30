@@ -34,7 +34,11 @@ public class ConfigLayout {
             @Override
             // quando o usuário clica no JTextField
             public void focusGained(FocusEvent e) {
-                if (campo.getText().equals(exemplo) || campo.getText().equals(exemplo + "-> Campo Obrigatório!!")) {
+                if (campo.getText().equals(exemplo) ||
+                        campo.getText().equals(exemplo + "-> Campo Obrigatório!!") ||
+                        campo.getText().equals("ID inválido!") ||
+                        campo.getText().equals("ID é obrigatório!")
+                ) {
                     campo.setText("");
                     campo.setForeground(Color.black);
                     campo.setHorizontalAlignment(JTextField.LEFT);
