@@ -38,7 +38,7 @@ public class GerenciadorBancoDados {
                 pstmt.setInt(7, disponivel);
                 pstmt.setDouble(8, preco);
                 pstmt.executeUpdate();
-                System.out.println("Inserido: " + nome); // mudar para um JOpitionpane
+
             }
         }
 

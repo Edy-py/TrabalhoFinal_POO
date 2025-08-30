@@ -84,6 +84,9 @@ public class ExcluirJogos extends JDialog {
 
         });
 
+        // Faz com que possamos confirmar com a tecla enter do teclado
+        ConfigLayout.addEnterFuncao(confirmarExclusaoButton,idJogoTextField);
+
         // Define titulo da janela
         setTitle("Exlcuir Jogo");
 

@@ -59,7 +59,7 @@ public class TelaCliente {
 
     //Metodo para preencher a combobox
     private void preencherComboBox() {
-        filtroCombobox.addItem("Pemdente");
+        filtroCombobox.addItem("Pendente");
         filtroCombobox.addItem("Ativo");
         filtroCombobox.addItem("Inativo");
         filtroCombobox.addItem("Todos");
