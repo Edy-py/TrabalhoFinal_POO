@@ -1,13 +1,14 @@
 package Classes;
 
 import BancodeDados.CarregamentoDeDados;
+import BancodeDados.ConexaoBanco;
+import BancodeDados.ConexaoUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Vector;
 
 public class ConfigLayout {
@@ -126,7 +127,7 @@ public class ConfigLayout {
                 if (campo.getText().isEmpty()) {
                     campo.setForeground(Color.BLACK);
                     campo.setText("Buscar por cpf");
-                    campo.setHorizontalAlignment(JTextField.CENTER);
+                    campo.setHorizontalAlignment(JTextField.LEFT);
                 }
             }
         };
@@ -149,4 +150,89 @@ public class ConfigLayout {
         });
     }
 
+    public static void buscaNome(JTextField campo, JLabel label,JLabel labelNome, String tabela) {
+
+        FocusListener focusListener = new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+                campo.setText("");
+                campo.setForeground(Color.black);
+                labelNome.setForeground(Color.BLACK);
+                labelNome.setText("CPF do Cliente:");
+                label.setText("");
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+
+                try (Connection conn = ConexaoUI.conectar()){
+
+                    String nome = ConexaoUI.buscaPorCpf(conn,campo.getText(), "nome",tabela);
+
+                    if (nome != null) {
+
+                        String textoFormatado = "<html>Esse cpf pertence ao cliente <font color='blue'>" + nome + "</font></html>";
+                        label.setText(textoFormatado);
+                        label.setFont(new Font("Arial", Font.BOLD, 22) );
+
+                    }else{
+
+                        label.setText("");
+                        label.setForeground(Color.BLACK);
+
+                    }
+
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao buscar nome do cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    System.out.println(ex.getMessage() );
+                }
+            }
+        };
+        campo.addFocusListener(focusListener);
+    }
+
+    public static void buscarPreco(JTextField qtdDias ,JLabel labelPreco,JComboBox<String> item, String tabela) {
+
+
+
+            FocusListener focusListener = new FocusListener() {
+                @Override
+                public void focusGained(FocusEvent e) {
+
+                    labelPreco.setText("");
+
+                }
+
+                public void focusLost(FocusEvent e) {
+
+                    try (Connection conn = ConexaoBanco.conectar()) {
+                    item.addItemListener(e1 -> {
+
+                        if(e1.getStateChange() == ItemEvent.SELECTED){
+                            String jogo = item.getSelectedItem().toString();
+
+                            try {
+                                String precoString = ConexaoUI.buscaPrecoPorNome(conn,jogo, "preco",tabela);
+                                double preco = ServicoJogo.stringParaDouble(precoString);
+                                int dia = Integer.parseInt(qtdDias.getText());
+                                labelPreco.setText("Preço total: R$" + preco * dia);
+
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+
+
+                        }
+
+                    });
+                    }catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Erro ao buscar preço do jogo!", "Erro", JOptionPane.ERROR_MESSAGE);
+
+                    }
+                }
+            };
+            item.addFocusListener(focusListener);
+    }
 }

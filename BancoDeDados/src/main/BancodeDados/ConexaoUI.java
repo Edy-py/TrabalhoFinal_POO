@@ -78,6 +78,32 @@ public class ConexaoUI extends Component {
         }
     }
 
+    public static String buscaPorCpf(Connection conn, String cpf, String coluna, String tabela) throws SQLException {
+        String sql = "SELECT " + coluna + " FROM " + tabela + " WHERE cpf = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, cpf);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("nome");
+            } else {
+                return null;
+            }
+        }
+
+    }
+
+    public static String buscaPrecoPorNome(Connection conn, String nome, String coluna, String tabela) throws SQLException {
+        String sql = "SELECT " + coluna + " FROM " + tabela + " WHERE nome = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nome);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("nome");
+            } else {
+                return null;
+            }
+        }
+    }
 
 }
 
