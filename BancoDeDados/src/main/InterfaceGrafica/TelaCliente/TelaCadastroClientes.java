@@ -26,6 +26,8 @@ public class TelaCadastroClientes extends JDialog {
 
     // Define o nome da tabela no banco de dados
     private String tabela = "clientes";
+    private String sqlCpf = "SELECT COUNT(*) FROM clientes WHERE cpf = ?";
+    private String sqlTelefone = "SELECT COUNT(*) FROM clientes WHERE telefone = ?";
 
 
 
@@ -41,6 +43,8 @@ public class TelaCadastroClientes extends JDialog {
         String exTelefone = "Digite o telefone do cliente: (64) 99999-9999";
         String exCpf = "Digite o CPF do cliente: 999.999.999-99";
         String exEmail = "Digite o email do cliente: exemplo@gamil.com";
+
+
 
 
         // Explicação na classe "ConfigLayout"
@@ -96,7 +100,7 @@ public class TelaCadastroClientes extends JDialog {
                     cpfValido = false;
 
                     // Verifica se o cpf não já foi cadastrado no banco de dados.
-                }else if(ServicoCliente.ehCpfRepetido(con, cpf.getText())){
+                }else if(ServicoCliente.ehRepetido(con, cpf.getText(), sqlCpf)){
                         cpfLabel.setText("Cpf já cadastrado!");
                         cpfLabel.setForeground(Color.RED);
                         cpfValido = false;
@@ -121,7 +125,7 @@ public class TelaCadastroClientes extends JDialog {
                     telefoneValido = false;
 
                     // Verifica se o telefone não está repetido no banco de dados.
-                }else if(ServicoCliente.ehTelefoneRepetido(con, telefone.getText())){
+                }else if(ServicoCliente.ehRepetido(con, telefone.getText(),sqlTelefone)){
                         telefoneLabel.setText("Telefone já cadastrado!");
                         telefoneLabel.setForeground(Color.RED);
                         telefoneValido = false;

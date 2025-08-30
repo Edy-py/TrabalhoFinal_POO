@@ -40,6 +40,7 @@ public class TelaCliente {
     private String sql = "SELECT " + colunas + " FROM " + tabela + " WHERE status LIKE ? ORDER BY nome ASC";
     private String sqlConsulta = "SELECT " + colunas + " FROM " + tabela + " WHERE cpf LIKE ? ORDER BY nome ASC";
     private String sqlSemFiltro = "SELECT " + colunas + " FROM " + tabela + " ORDER BY nome ASC";
+    private String sqlCpf = "SELECT COUNT(*) FROM clientes WHERE cpf = ?";
 
     // Função para alterar o nome das colunas da tabela
     public Vector<String> mudarNomeDasColunas(){
@@ -58,7 +59,7 @@ public class TelaCliente {
 
     //Metodo para preencher a combobox
     private void preencherComboBox() {
-        filtroCombobox.addItem("Pemdente");
+        filtroCombobox.addItem("Pendente");
         filtroCombobox.addItem("Ativo");
         filtroCombobox.addItem("Inativo");
         filtroCombobox.addItem("Todos");
@@ -142,7 +143,7 @@ public class TelaCliente {
                     try {
 
                         // Verifica se o cpf está no banco de dados
-                        if (!ServicoCliente.ehCpfRepetido(ConexaoUI.conectar(), buscaTextField.getText())) {
+                        if (!ServicoCliente.ehRepetido(ConexaoUI.conectar(), buscaTextField.getText(),sqlCpf)) {
                                 buscaTextField.setText("Cpf não encontrado!");
                                 buscaTextField.setForeground(Color.RED);
                                 scrollerPanel.requestFocusInWindow();

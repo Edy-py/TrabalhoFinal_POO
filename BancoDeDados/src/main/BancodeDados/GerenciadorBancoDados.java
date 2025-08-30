@@ -1,5 +1,6 @@
 package BancodeDados;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,16 +38,16 @@ public class GerenciadorBancoDados {
                 pstmt.setInt(7, disponivel);
                 pstmt.setDouble(8, preco);
                 pstmt.executeUpdate();
-                System.out.println("Inserido: " + nome); // mudar para um JOpitionpane
+
             }
         }
 
     }
 
 
-    public static void atualizarDadosCliente(int id, String novoNome, String novoEmail, String novoCPF,String novoEndereco,String novoTelefone, double novoPreco, String tabela) throws SQLException {
-        try (Connection conn = ConexaoBanco.conectar()){
-            String sql = "UPDATE " + tabela + " SET Nome = ?, email = ?, cpf = ?, endereco = ?, telefone = ?, preco = ? WHERE Id = ?";
+    public static void atualizarDadosCliente(Connection conn,int id, String novoNome, String novoEmail, String novoCPF,String novoEndereco,String novoTelefone, String tabela) throws SQLException {
+
+            String sql = "UPDATE " + tabela + " SET Nome = ?, email = ?, cpf = ?, endereco = ?, telefone = ? WHERE Id = ?";
 
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, novoNome);
@@ -54,33 +55,27 @@ public class GerenciadorBancoDados {
                 pstmt.setString(3, novoCPF);
                 pstmt.setString(4, novoEndereco);
                 pstmt.setString(5, novoTelefone);
-                pstmt.setDouble(6, novoPreco);
-                pstmt.setInt(7, id);
+                pstmt.setDouble(6, id);
 
-                int linhasAfetadas = pstmt.executeUpdate();
-                // mudar para um JOpitionpane
-                if (linhasAfetadas > 0) {
-                    System.out.println("Registro com ID " + id + " atualizado com sucesso.");
-                } else {
-                    System.out.println("Nenhum registro encontrado com ID " + id + ".");
-                }
+
+            }catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Erro ao atualizar dados do cliente: ", "Erro de atualização", JOptionPane.ERROR_MESSAGE);
             }
-        }
+
     }
 
+
     public static void deletarDados(int id, String tabela) throws SQLException {
+
         try (Connection conn = ConexaoBanco.conectar()){
+
             String sql = "DELETE FROM " + tabela + " WHERE Id = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, id);
-                int linhasAfetadas = pstmt.executeUpdate();
-                if (linhasAfetadas > 0) {
-                    System.out.println("Registro com ID " + id + " deletado com sucesso.");
-                } else {
-                    System.out.println("Nenhum registro encontrado com ID " + id + ".");
-                }
+
+            }
             }
         }
-    }
+
 
 }

@@ -1,6 +1,5 @@
 package BancodeDados;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.*;
@@ -62,6 +61,20 @@ public class ConexaoUI extends Component {
             return ConexaoBanco.conectar();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+
+    public static String buscaPorId(Connection conn, int id, String coluna, String tabela) throws SQLException {
+        String sql = "SELECT " + coluna + " FROM " + tabela + " WHERE Id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("nome");
+            } else {
+                return null;
+            }
         }
     }
 

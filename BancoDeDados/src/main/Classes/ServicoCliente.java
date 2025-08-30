@@ -50,6 +50,11 @@ public class ServicoCliente {
 
     }
 
+    public static boolean ehIdValido(String id){
+        String regex = "^\\d+$";
+        return id.matches(regex);
+    }
+
     public static String formatarTelefone(String telefone){
         return  telefone.replaceFirst(
                 "(\\d{2})(\\d{1})(\\d{4})(\\d{4})",
@@ -62,12 +67,12 @@ public class ServicoCliente {
                 "$1.$2.$3-$4");
     }
 
-    // Método que verifica se o cpf já foi cadastrado no banco de dados
-    public static boolean ehCpfRepetido(Connection conn, String cpf) {
-            String sql = "SELECT COUNT(*) FROM clientes WHERE cpf = ?";
+    // Método que verifica se o dado já foi cadastrado no banco de dados
+    public static boolean ehRepetido(Connection conn, String dado, String sql) {
+
 
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, cpf);
+                pstmt.setString(1, dado);
                 try (java.sql.ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         int qtd = rs.getInt(1);
@@ -85,29 +90,32 @@ public class ServicoCliente {
             }
 
 
-    }// Método que verifica se o telefone já foi cadastrado no banco de dados
-    public static boolean ehTelefoneRepetido(Connection conn, String telefone) {
-            String sql = "SELECT COUNT(*) FROM clientes WHERE telefone = ?";
-
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, telefone);
-                try (java.sql.ResultSet rs = pstmt.executeQuery()) {
-                    if (rs.next()) {
-                        int qtd = rs.getInt(1);
-                        if (qtd > 0) {
-
-                            return true;
-                        }
-                    }
-
-                return false;
-                }
-
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
     }
+
+
+    // Método que verifica se o telefone já foi cadastrado no banco de dados
+//    public static boolean ehRepetido(Connection conn, String telefone) {
+//            String sql = "SELECT COUNT(*) FROM clientes WHERE telefone = ?";
+//
+//            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//                pstmt.setString(1, telefone);
+//                try (java.sql.ResultSet rs = pstmt.executeQuery()) {
+//                    if (rs.next()) {
+//                        int qtd = rs.getInt(1);
+//                        if (qtd > 0) {
+//
+//                            return true;
+//                        }
+//                    }
+//
+//                return false;
+//                }
+//
+//
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//    }
 
 
 
