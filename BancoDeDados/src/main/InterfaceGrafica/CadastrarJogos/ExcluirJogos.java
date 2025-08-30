@@ -7,9 +7,8 @@ public class ExcluirJogos extends JDialog {
     private JPanel excluirJogosPanel;
     private JTextField idJogoTextField;
     private JLabel insiraIDJogoLabel;
-    private JLabel nomedojogoselecionadoLabel;
     private JLabel nomeDoJogoLabel;
-    private JButton confirmarExclusãoButton;
+    private JButton confirmarExclusaoButton;
 
     public  ExcluirJogos() {
         super();
@@ -21,7 +20,7 @@ public class ExcluirJogos extends JDialog {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         // Configura o tamanho da janela
-        setSize(600, 500);
+        setSize(500, 400);
 
         // Fazendo a tela aparecer no centro da tela
         setLocationRelativeTo(null);
