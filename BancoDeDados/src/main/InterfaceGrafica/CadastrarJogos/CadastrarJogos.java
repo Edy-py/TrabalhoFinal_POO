@@ -1,3 +1,7 @@
+//Edílson Alves da Silva (GitHub: edy-py)
+//Guilherme Henrique Garcia Silva (GitHub: Guigas-hgs)
+//Élio Mário Soares Júnior (GitHub: BrawlerGits)
+
 package InterfaceGrafica.CadastrarJogos;
 
 import BancodeDados.CarregamentoDeDados;
@@ -5,6 +9,7 @@ import BancodeDados.ConexaoUI;
 import Classes.ConfigLayout;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -67,6 +72,9 @@ public class CadastrarJogos {
 
     public CadastrarJogos(){
 
+        //Criando um guia para a tela principal (esta) para utilizar na tela popup
+        Window owner = SwingUtilities.getWindowAncestor(cadastrojogosPanel);
+
         CarregamentoDeDados threadSemfiltro = new CarregamentoDeDados(sqlSemFiltro, null, mudarNomeDasColunas(), tabelaPanel);
         threadSemfiltro.execute();
 
@@ -98,7 +106,7 @@ public class CadastrarJogos {
         //Fazendo o botao abrir uma nova janela
         cadastrarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCadastro telaCadastro = new TelaCadastro();
+                TelaCadastro telaCadastro = new TelaCadastro((Frame)owner, true);
                 telaCadastro.setVisible(true);
             }
         });
@@ -106,7 +114,7 @@ public class CadastrarJogos {
         //fazendo o botao abrir uma nova janela
         excluirButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ExcluirJogos  excluirJogos = new ExcluirJogos();
+                ExcluirJogos  excluirJogos = new ExcluirJogos((Frame)owner, true);
                 excluirJogos.setVisible(true);
             }
         });

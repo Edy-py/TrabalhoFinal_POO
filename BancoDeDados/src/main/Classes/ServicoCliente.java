@@ -1,3 +1,7 @@
+//Edílson Alves da Silva (GitHub: edy-py)
+//Guilherme Henrique Garcia Silva (GitHub: Guigas-hgs)
+//Élio Mário Soares Júnior (GitHub: BrawlerGits)
+
 package Classes;
 
 import java.sql.Connection;

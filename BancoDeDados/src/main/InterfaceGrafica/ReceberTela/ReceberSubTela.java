@@ -1,9 +1,14 @@
+//Edílson Alves da Silva (GitHub: edy-py)
+//Guilherme Henrique Garcia Silva (GitHub: Guigas-hgs)
+//Élio Mário Soares Júnior (GitHub: BrawlerGits)
+
 package InterfaceGrafica.ReceberTela;
 
 import BancodeDados.ConexaoUI;
 import BancodeDados.GerenciadorBancoDados;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -100,8 +105,8 @@ public class ReceberSubTela extends JDialog {
         }
     }
 
-    public ReceberSubTela() {
-        super();
+    public ReceberSubTela(Frame pai, boolean modal) {
+        super(pai, modal);
         preencherCombobox();
         carregarDetalhesLocacao();
 
@@ -131,8 +136,7 @@ public class ReceberSubTela extends JDialog {
         setTitle("Receber Jogo");
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setSize(600, 650);
-        setLocationRelativeTo(null);
-        setModal(true); // Garante que a janela principal espere por esta
+        setLocationRelativeTo(pai);
         this.add(recebersubtelaPanel);
     }
 }

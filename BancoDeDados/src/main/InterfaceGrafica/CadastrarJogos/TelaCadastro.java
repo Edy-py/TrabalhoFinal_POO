@@ -1,3 +1,7 @@
+//Edílson Alves da Silva (GitHub: edy-py)
+//Guilherme Henrique Garcia Silva (GitHub: Guigas-hgs)
+//Élio Mário Soares Júnior (GitHub: BrawlerGits)
+
 package InterfaceGrafica.CadastrarJogos;
 
 import BancodeDados.GerenciadorBancoDados;
@@ -44,8 +48,8 @@ public class TelaCadastro extends JDialog{
         classificacaoCombobox.addItem("18+");
     }
 
-    public TelaCadastro() {
-        super();
+    public TelaCadastro(Frame pai, boolean modal) {
+        super(pai, modal);
 
         ConfigLayout.exemploDeTexto(nomeJogo, exNome);
         ConfigLayout.exemploDeTexto(console, exConsole);
@@ -153,7 +157,7 @@ public class TelaCadastro extends JDialog{
         setTitle("Cadastro de Jogos");
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setSize(600, 650);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(pai);
         preencherComboBox();
         this.add(cadastroPanel);
     }

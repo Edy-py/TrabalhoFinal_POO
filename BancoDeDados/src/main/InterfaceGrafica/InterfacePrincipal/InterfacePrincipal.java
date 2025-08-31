@@ -1,4 +1,7 @@
-// edy-py/trabalhofinal_poo/TrabalhoFinal_POO-769d62480d4f91e802e17c2e760254733f7dca07/BancoDeDados/src/main/InterfaceGrafica/InterfacePrincipal/InterfacePrincipal.java
+//Edílson Alves da Silva (GitHub: edy-py)
+//Guilherme Henrique Garcia Silva (GitHub: Guigas-hgs)
+//Élio Mário Soares Júnior (GitHub: BrawlerGits)
+
 package InterfaceGrafica.InterfacePrincipal;
 
 import BancodeDados.GerenciadorBancoDados;
@@ -25,7 +28,7 @@ public class InterfacePrincipal {
     private JPanel locarPanel;
     private JPanel jogosPanel;
     private JPanel receberPanel;
-    private JButton avancarDiaButton; // Novo botão
+    private JButton avancarDiaButton;
 
     //funcao que realiza a navegacao entre os paineis das funcoes:
     private void mostrarPainel(String nomePainel){
@@ -64,6 +67,7 @@ public class InterfacePrincipal {
         receberButton.addActionListener(e -> mostrarPainel("Card4"));
 
 
+        //Funçao debug para passar um dia no sistema
         avancarDiaButton.addActionListener(e -> {
             try {
                 GerenciadorBancoDados.avancarDia();

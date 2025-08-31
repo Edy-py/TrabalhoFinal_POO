@@ -1,3 +1,7 @@
+//Edílson Alves da Silva (GitHub: edy-py)
+//Guilherme Henrique Garcia Silva (GitHub: Guigas-hgs)
+//Élio Mário Soares Júnior (GitHub: BrawlerGits)
+
 package InterfaceGrafica.ReceberTela;
 
 import BancodeDados.ConexaoUI;
@@ -5,6 +9,7 @@ import BancodeDados.GerenciadorBancoDados;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -44,6 +49,9 @@ public class ReceberTela {
     //constructor da janela
     public ReceberTela() {
 
+        //Criando um guia para a tela principal (esta) para utilizar na tela popup
+        Window owner = SwingUtilities.getWindowAncestor(receberPanel);
+
         preencherComboBox();
         carregarLocacoes("Alugando");
 
@@ -59,7 +67,7 @@ public class ReceberTela {
                         JOptionPane.showMessageDialog(receberPanel, "Não há locações pendentes para receber.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         // 3. Se houver locações, abre a janela de recebimento
-                        ReceberSubTela receberSubTela = new ReceberSubTela();
+                        ReceberSubTela receberSubTela = new ReceberSubTela((Frame)owner, true);
                         receberSubTela.setVisible(true);
                         // Atualiza a tabela principal depois que a subtela for fechada
                         atualizarButton.doClick();

@@ -1,3 +1,7 @@
+//Edílson Alves da Silva (GitHub: edy-py)
+//Guilherme Henrique Garcia Silva (GitHub: Guigas-hgs)
+//Élio Mário Soares Júnior (GitHub: BrawlerGits)
+
 package InterfaceGrafica.CadastrarJogos;
 
 import BancodeDados.ConexaoUI;
@@ -18,8 +22,8 @@ public class ExcluirJogos extends JDialog {
     private JButton confirmarExclusaoButton;
     private String tabela = "jogos";
 
-    public ExcluirJogos() {
-        super();
+    public ExcluirJogos(Frame pai, boolean modal) {
+        super(pai, modal);
         String exId = "Digite o ID do jogo: ";
         ConfigLayout.exemploDeTexto(idJogoTextField, exId);
 
@@ -66,7 +70,7 @@ public class ExcluirJogos extends JDialog {
         setTitle("Excluir Jogo");
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setSize(500, 400);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(pai);
         this.add(excluirJogosPanel);
     }
 }
