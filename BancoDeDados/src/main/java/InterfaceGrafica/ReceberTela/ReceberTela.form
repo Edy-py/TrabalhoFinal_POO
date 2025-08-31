@@ -41,23 +41,6 @@
               </component>
             </children>
           </grid>
-          <grid id="ec0d5" binding="topoPanel2" layout-manager="BorderLayout" hgap="0" vgap="0">
-            <constraints border-constraint="Center"/>
-            <properties/>
-            <border type="none"/>
-            <children>
-              <component id="94a6f" class="javax.swing.JTextField" binding="buscaTextfield">
-                <constraints border-constraint="Center"/>
-                <properties/>
-              </component>
-              <component id="14621" class="javax.swing.JButton" binding="buscarButton" default-binding="true">
-                <constraints border-constraint="East"/>
-                <properties>
-                  <text value="Buscar"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
         </children>
       </grid>
       <scrollpane id="5e36a">
