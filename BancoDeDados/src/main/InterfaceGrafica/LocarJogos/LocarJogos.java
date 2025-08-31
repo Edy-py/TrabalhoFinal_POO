@@ -1,18 +1,18 @@
 package InterfaceGrafica.LocarJogos;
 
 import BancodeDados.ConexaoUI;
+import BancodeDados.GerenciadorBancoDados;
 import Classes.ConfigLayout;
 import Classes.ServicoCliente;
+import Classes.ServicoJogo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Connection;
+import java.awt.event.ItemEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class LocarJogos {
-    //declarando os atributos da tela
     private JPanel ControlPanel;
     private JPanel informacoesPanel;
     private JButton confirmarLocacaoButton;
@@ -26,126 +26,119 @@ public class LocarJogos {
     private JLabel precototalLabel;
     private JLabel inserirprecoLabel;
     private JTextField textField1;
-    private JComboBox filtroCombobox;
+    private JComboBox<String> filtroCombobox;
     private JLabel filtrarLabel;
 
     private String tabela = "clientes";
     private String sqlCpf = "SELECT COUNT(*) FROM "+tabela+" WHERE cpf = ?";
 
-
-    public Vector<String> mudarNomeDasColunas(){
-        Vector<String> nomesAmigaveis = new Vector<>();
-        nomesAmigaveis.add("Id_jogo");
-        nomesAmigaveis.add("Nome");
-        nomesAmigaveis.add("Publisher");
-        nomesAmigaveis.add("Console");
-        nomesAmigaveis.add("Classificacao");
-        nomesAmigaveis.add("Ano_Lancamento");
-        nomesAmigaveis.add("Em_Estoque");
-        nomesAmigaveis.add("Disponivel");
-        nomesAmigaveis.add("Preco");
-
-        return nomesAmigaveis;
-    }
-
-
-    //Metodo para preencher a combobox
     private void preencherComboBox(JComboBox<String> comboBox, String coluna, String tabela) {
-        try (Connection con = ConexaoUI.conectar()) {
-
-            // busca os dados da tabela jogos na coluna consoles e os coloca na combobox
+        try {
             ArrayList<String> items = ConexaoUI.getInfoColuna(coluna, tabela);
-
-
-            // adiciona o array ao cobobox
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(items.toArray(new String[0]));
             comboBox.setModel(modelo);
-
-        }catch (SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados","Erro de Conexão", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro ao popular a combobox: " + ex.getMessage(),"Erro de Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
-
     }
-
 
     public LocarJogos() {
         super();
 
-        String exCpf = "Digite o CPF do cliente: 999.999.999-99";
+        preencherComboBox(filtroCombobox, "console", "jogos");
+        filtroCombobox.insertItemAt("Todos", 0);
+        filtroCombobox.setSelectedIndex(0);
 
+        preencherComboBox(jogoCombobox, "nome", "jogos WHERE quantidade_disponivel > 0");
+
+        filtroCombobox.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                String consoleSelecionado = (String) filtroCombobox.getSelectedItem();
+                if ("Todos".equals(consoleSelecionado)) {
+                    preencherComboBox(jogoCombobox, "nome", "jogos WHERE quantidade_disponivel > 0");
+                } else {
+                    preencherComboBox(jogoCombobox, "nome", "jogos WHERE console = '" + consoleSelecionado + "' AND quantidade_disponivel > 0");
+                }
+            }
+        });
+
+        String exCpf = "Digite o CPF do cliente: 999.999.999-99";
         ConfigLayout.infoBusca(cpfTextField);
 
-        preencherComboBox(jogoCombobox,"nome","jogos");
-
         confirmarLocacaoButton.addActionListener(e -> {
-
             boolean cpfValido = true;
+            boolean diasValido = true;
 
-            try (Connection con = ConexaoUI.conectar()) {
+            try {
+                if (jogoCombobox.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(null, "Nenhum jogo disponível para locação com o filtro selecionado.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
 
-                // Não permite que um campo fique vazio
+                String cpfInput = cpfTextField.getText();
+
                 if (!ConfigLayout.verificarCampoObrigatorio(cpfTextField, exCpf)) {
                     cpfLabel.setText("CPF é obrigatório!");
                     cpfLabel.setForeground(Color.RED);
                     cpfTextField.setText("");
                     cpfValido = false;
-
-                    // Verifica se o cpf digitado é válido
-                } else if (!ServicoCliente.ehCPFValido(cpfTextField.getText())) {
+                } else if (!ServicoCliente.ehCPFValido(cpfInput)) {
                     cpfLabel.setText("CPF inválido!");
                     cpfLabel.setForeground(Color.RED);
                     cpfTextField.setText("");
                     cpfValido = false;
-
-                    // Verifica se o cpf não já foi cadastrado no banco de dados.
-                }else if(!ServicoCliente.ehRepetido(con, cpfTextField.getText(), sqlCpf)){ // se não é repetido o cpf não foi cadastrado no banco de dados.
-                    cpfLabel.setText("Cpf não cadastrado!");
-                    cpfLabel.setForeground(Color.RED);
-                    cpfTextField.setText("");
-                    cpfValido = false;
-
-                    // se passar pelas verificação volta para os valores iniciais para o campo.
-                }else {
-                    cpfLabel.setText("Digite o CPF:");
-                    cpfLabel.setForeground(Color.BLACK);
+                } else {
+                    String cpfFormatado = ServicoCliente.formatarCpf(cpfInput);
+                    if(!ServicoCliente.ehRepetido(ConexaoUI.conectar(), cpfFormatado, sqlCpf)){
+                        cpfLabel.setText("Cpf não cadastrado!");
+                        cpfLabel.setForeground(Color.RED);
+                        cpfTextField.setText("");
+                        cpfValido = false;
+                    } else {
+                        cpfLabel.setText("Digite o CPF:");
+                        cpfLabel.setForeground(Color.BLACK);
+                    }
                 }
 
-                if(cpfValido){
+                if (!ServicoJogo.verificarQtd(textField1.getText())) {
+                    diasLabel.setText("Dias inválidos!");
+                    diasLabel.setForeground(Color.RED);
+                    textField1.setText("");
+                    diasValido = false;
+                } else {
+                    diasLabel.setText("Dias a Locar:");
+                    diasLabel.setForeground(Color.BLACK);
+                }
 
+                if(cpfValido && diasValido){
+                    String nomeJogo = jogoCombobox.getSelectedItem().toString();
+                    int idCliente = ConexaoUI.getIdPorCpf(ServicoCliente.formatarCpf(cpfInput));
+                    int idJogo = ConexaoUI.getIdPorNome(nomeJogo, "jogos");
+                    int dias = Integer.parseInt(textField1.getText());
 
-
-                    String nome = nomeparaaparecerLabel.getText();
-
-                    int resposta = JOptionPane.showConfirmDialog(null, "Nome: " + nome, "Confirmar Cliente", JOptionPane.YES_NO_OPTION);
+                    int resposta = JOptionPane.showConfirmDialog(null, "Confirmar locação do jogo " + nomeJogo + " por " + dias + " dias?", "Confirmar Ação", JOptionPane.YES_NO_OPTION);
 
                     if (resposta == JOptionPane.YES_OPTION) {
-                        nomeparaaparecerLabel.setText(nome);
-
-                    }else {
-                        JOptionPane.showMessageDialog(null, "Operação cancelada pelo usuário","Aviso", JOptionPane.WARNING_MESSAGE);
+                        GerenciadorBancoDados.inserirDadosLocacao(idCliente, idJogo, dias);
+                        GerenciadorBancoDados.atualizarQuantidadeDisponivelJogo(idJogo, -1);
+                        GerenciadorBancoDados.atualizarStatusCliente(idCliente, "Alugando");
+                        JOptionPane.showMessageDialog(null, "Locação realizada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Operação cancelada pelo usuário.","Aviso", JOptionPane.WARNING_MESSAGE);
                     }
-
-
                 }
-
-            }catch (
-                    SQLException ex){
-                JOptionPane.showMessageDialog(null, "Erro ao conectar ao Banco de dados", "Erro de conexão", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex){
+                JOptionPane.showMessageDialog(null, "Erro ao conectar ao Banco de dados.", "Erro de Conexão", JOptionPane.ERROR_MESSAGE);
             }
-
         });
 
-        ConfigLayout.buscarPreco(textField1,precototalLabel,jogoCombobox,tabela);
 
-        ConfigLayout.buscaNome(cpfTextField,nomeparaaparecerLabel,cpfLabel,tabela);
-
+        ConfigLayout.buscarPreco(textField1, inserirprecoLabel, jogoCombobox, "jogos");
+        ConfigLayout.buscaNome(cpfTextField, nomeparaaparecerLabel, cpfLabel, tabela);
+        ConfigLayout.addEnterFuncao(confirmarLocacaoButton,textField1);
     }
 
-
-    //getter da classe para mandar o panel principal para a tela principal
     public JPanel getControlPanel() {
         return ControlPanel;
     }
-
-
 }

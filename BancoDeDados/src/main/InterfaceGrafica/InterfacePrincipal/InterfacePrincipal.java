@@ -1,5 +1,7 @@
+// edy-py/trabalhofinal_poo/TrabalhoFinal_POO-769d62480d4f91e802e17c2e760254733f7dca07/BancoDeDados/src/main/InterfaceGrafica/InterfacePrincipal/InterfacePrincipal.java
 package InterfaceGrafica.InterfacePrincipal;
 
+import BancodeDados.GerenciadorBancoDados;
 import InterfaceGrafica.CadastrarJogos.CadastrarJogos;
 import InterfaceGrafica.LocarJogos.LocarJogos;
 import InterfaceGrafica.ReceberTela.ReceberTela;
@@ -7,6 +9,7 @@ import InterfaceGrafica.TelaCliente.TelaCliente;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class InterfacePrincipal {
 
@@ -22,6 +25,7 @@ public class InterfacePrincipal {
     private JPanel locarPanel;
     private JPanel jogosPanel;
     private JPanel receberPanel;
+    private JButton avancarDiaButton; // Novo botão
 
     //funcao que realiza a navegacao entre os paineis das funcoes:
     private void mostrarPainel(String nomePainel){
@@ -58,10 +62,21 @@ public class InterfacePrincipal {
         locarButton.addActionListener(e -> mostrarPainel("Card2"));
         jogosButton.addActionListener(e -> mostrarPainel("Card3"));
         receberButton.addActionListener(e -> mostrarPainel("Card4"));
+
+
+        avancarDiaButton.addActionListener(e -> {
+            try {
+                GerenciadorBancoDados.avancarDia();
+                JOptionPane.showMessageDialog(null, "Um dia se passou! Locações e status foram atualizados.", "Debugger", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao avançar o dia: " + ex.getMessage(), "Erro de Banco de Dados", JOptionPane.ERROR_MESSAGE);
+            }
+        });
     }
 
     //criando a funcao main para iniciar o JFrame
     public static void main(String[] args) {
+
         JFrame frame = new JFrame("Locadora");
         frame.setContentPane(new InterfacePrincipal().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

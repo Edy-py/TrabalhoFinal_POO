@@ -32,7 +32,7 @@ public class EditarCliente extends JDialog {
     private String sqlTelefone = "SELECT COUNT(*) FROM clientes WHERE telefone = ?";
 
 
-    public EditarCliente() {
+    public EditarCliente(Frame parentWindow) {
         super();
 
 

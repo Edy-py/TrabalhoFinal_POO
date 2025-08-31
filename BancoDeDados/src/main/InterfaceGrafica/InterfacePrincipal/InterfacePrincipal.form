@@ -58,7 +58,14 @@
             </constraints>
             <properties/>
             <border type="none"/>
-            <children/>
+            <children>
+              <component id="14ef6" class="javax.swing.JButton" binding="avancarDiaButton">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <text value="Avançar Dia"/>
+                </properties>
+              </component>
+            </children>
           </grid>
           <grid id="6c119" binding="locarPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
