@@ -7,7 +7,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="2a3a4" binding="panelBotoes" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="2a3a4" binding="panelBotoes" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints border-constraint="West"/>
         <properties/>
@@ -45,6 +45,14 @@
               <text value="Receber"/>
             </properties>
           </component>
+          <component id="f1d41" class="javax.swing.JButton" binding="avancarDiaButton">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Avançar Dia"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="ec343" binding="panelFuncoes" layout-manager="CardLayout" hgap="0" vgap="0">
@@ -58,14 +66,7 @@
             </constraints>
             <properties/>
             <border type="none"/>
-            <children>
-              <component id="14ef6" class="javax.swing.JButton" binding="avancarDiaButton">
-                <constraints border-constraint="Center"/>
-                <properties>
-                  <text value="Avançar Dia"/>
-                </properties>
-              </component>
-            </children>
+            <children/>
           </grid>
           <grid id="6c119" binding="locarPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>

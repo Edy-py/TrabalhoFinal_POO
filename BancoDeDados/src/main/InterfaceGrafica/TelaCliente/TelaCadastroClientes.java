@@ -1,3 +1,7 @@
+//Edílson Alves da Silva (GitHub: edy-py)
+//Guilherme Henrique Garcia Silva (GitHub: Guigas-hgs)
+//Élio Mário Soares Júnior (GitHub: BrawlerGits)
+
 package InterfaceGrafica.TelaCliente;
 
 import BancodeDados.ConexaoUI;
@@ -28,8 +32,8 @@ public class TelaCadastroClientes extends JDialog {
     private String sqlCpf = "SELECT COUNT(*) FROM clientes WHERE cpf = ?";
     private String sqlTelefone = "SELECT COUNT(*) FROM clientes WHERE telefone = ?";
 
-    public TelaCadastroClientes() {
-        super();
+    public TelaCadastroClientes(Frame pai, boolean modal) {
+        super(pai, modal);
 
         String exNome = "Digite o nome do cliente: ";
         String exEndereco = "Rua, Bairro, Casa, Cidade";
@@ -148,8 +152,7 @@ public class TelaCadastroClientes extends JDialog {
         setTitle("Cadastro de Clientes");
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setSize(600, 650);
-        setLocationRelativeTo(null);
-        setModal(true);
+        setLocationRelativeTo(pai);
         this.add(cadastroclientePanel);
     }
 }

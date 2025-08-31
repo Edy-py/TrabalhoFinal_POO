@@ -1,3 +1,7 @@
+//Edílson Alves da Silva (GitHub: edy-py)
+//Guilherme Henrique Garcia Silva (GitHub: Guigas-hgs)
+//Élio Mário Soares Júnior (GitHub: BrawlerGits)
+
 package InterfaceGrafica.TelaCliente;
 
 import BancodeDados.CarregamentoDeDados;
@@ -57,6 +61,10 @@ public class TelaCliente {
     }
 
     public TelaCliente() {
+
+        //Criando um guia para a tela principal (esta) para utilizar na tela popup
+        Window owner = SwingUtilities.getWindowAncestor(MainCliente);
+
         CarregamentoDeDados threadSemfiltro = new CarregamentoDeDados(sql, "Devendo", mudarNomeDasColunas(), tabelaPanel);
         threadSemfiltro.execute();
 
@@ -81,15 +89,14 @@ public class TelaCliente {
 
         cadastrarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCadastroClientes telaCadastroClientes = new TelaCadastroClientes();
+                TelaCadastroClientes telaCadastroClientes = new TelaCadastroClientes((Frame)owner, true);
                 telaCadastroClientes.setVisible(true);
                 atualizarButton.doClick();
             }
         });
 
         editarButton.addActionListener(e -> {
-            Window parentWindow = SwingUtilities.getWindowAncestor(this.MainCliente);
-            EditarCliente editarCliente = new EditarCliente((Frame) parentWindow);
+            EditarCliente editarCliente = new EditarCliente((Frame)owner, true);
             editarCliente.setVisible(true);
             atualizarButton.doClick();
         });

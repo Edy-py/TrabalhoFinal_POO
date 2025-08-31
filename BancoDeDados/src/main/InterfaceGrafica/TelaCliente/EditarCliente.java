@@ -1,3 +1,7 @@
+//Edílson Alves da Silva (GitHub: edy-py)
+//Guilherme Henrique Garcia Silva (GitHub: Guigas-hgs)
+//Élio Mário Soares Júnior (GitHub: BrawlerGits)
+
 package InterfaceGrafica.TelaCliente;
 
 import BancodeDados.ConexaoUI;
@@ -32,8 +36,8 @@ public class EditarCliente extends JDialog {
     private String sqlTelefone = "SELECT COUNT(*) FROM clientes WHERE telefone = ?";
 
 
-    public EditarCliente(Frame parentWindow) {
-        super();
+    public EditarCliente(Frame pai, boolean modal) {
+        super(pai, modal);
 
 
         // Textos de exempos de como o usuário deve preencher os campos para cadastrar um cliente no banco de dados.
@@ -256,7 +260,7 @@ public class EditarCliente extends JDialog {
         setSize(600, 650);
 
 
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(pai);
 
         //adicionando o conteudo da panel cadastroPanel a nova janela que será criada
         this.add(editarClientePanel);
