@@ -28,7 +28,6 @@ public class InterfacePrincipal {
     private JPanel locarPanel;
     private JPanel jogosPanel;
     private JPanel receberPanel;
-    private JButton avancarDiaButton;
 
     //funcao que realiza a navegacao entre os paineis das funcoes:
     private void mostrarPainel(String nomePainel){
@@ -66,16 +65,6 @@ public class InterfacePrincipal {
         jogosButton.addActionListener(e -> mostrarPainel("Card3"));
         receberButton.addActionListener(e -> mostrarPainel("Card4"));
 
-
-        //Funçao debug para passar um dia no sistema
-        avancarDiaButton.addActionListener(e -> {
-            try {
-                GerenciadorBancoDados.avancarDia();
-                JOptionPane.showMessageDialog(null, "Um dia se passou! Locações e status foram atualizados.", "Debugger", JOptionPane.INFORMATION_MESSAGE);
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao avançar o dia: " + ex.getMessage(), "Erro de Banco de Dados", JOptionPane.ERROR_MESSAGE);
-            }
-        });
     }
 
     //criando a funcao main para iniciar o JFrame

@@ -22,9 +22,6 @@ public class ReceberTela {
     private JPanel topoLateralPanel;
     private JComboBox<String> filtroCombobox;
     private JLabel filtrarLabel;
-    private JPanel topoPanel2;
-    private JTextField buscaTextfield;
-    private JButton buscarButton;
     private JLabel receberLabel;
     private JTable tabelaPanel;
     private JButton receberButton;
